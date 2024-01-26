@@ -1,0 +1,97 @@
+@import "nullcss.css";
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+
+* {
+    font-family: 'PT Sans', sans-serif;
+}
+
+body {
+    background: rgb(255, 207, 228);
+    background: radial-gradient(circle, rgba(255, 207, 228, 1) 0%, rgba(255, 255, 255, 1) 33%);
+    min-width: 1900px;
+    background-size: 1900px;
+
+}
+
+header {
+    height: 200px;
+    width: 1611px;
+    position: relative;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    padding-left: 50px;
+}
+
+.header_menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 800px;
+}
+
+header span {
+    color: #313131;
+    font-size: 28px;
+}
+
+header img {
+    height: 150px;
+}
+
+header button {
+    border-radius: 15px;
+    border-color: #313131;
+    width: 120px;
+    height: 50px;
+    font-size: 18px;
+}
+
+.header_sign_buttons {
+    padding-left: 50px;
+    min-width: 450px;
+}
+
+header .sign_in_button {
+    background-color: #f94761;
+    margin-left: 15px;
+}
+
+header .sign_up_button {
+    background-color: #cfcfcf;
+}
+
+.information-container {
+    margin-top: 120px;
+}
+
+.information-container-sections {
+    height: 400px;
+    width: 1300px;
+    position: relative;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.information-container-section {
+    width: 300px;
+    height: 400px;
+    padding: 50px 80px;
+    border: 1px solid #f74660;
+    border-radius: 25px;
+    font-size: 16px;
+    background-color: white;
+}
+
+.information-container-section:first-letter {
+    color: #f74660;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.information-container-section:hover {
+    box-shadow: #f74660 2px 2px 20px 1px;
+}
