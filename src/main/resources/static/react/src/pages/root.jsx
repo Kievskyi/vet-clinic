@@ -1,5 +1,6 @@
 import Header from "../components/Header.jsx";
 import InfoMainPage from "../components/main/InfoMainPage.jsx";
+import {Outlet} from "react-router-dom";
 
 export default function Root() {
 
@@ -7,6 +8,9 @@ export default function Root() {
         <>
             <Header/>
             <InfoMainPage/>
+            <div>
+                <Outlet/>
+            </div>
         </>
     )
 }
