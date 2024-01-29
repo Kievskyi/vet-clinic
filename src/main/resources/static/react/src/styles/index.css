@@ -56,17 +56,19 @@ header .sign_up_button {
     background-color: #cfcfcf;
 }
 
-.information-container {
-    margin-top: 120px;
+.information-container-wrapper {
+    position: relative;
+    margin: auto;
 }
 
 .information-container-sections {
     height: 400px;
-    width: 1300px;
+    width: 70vw;
     position: relative;
     margin: auto;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     align-items: center;
 }
 
