@@ -1,20 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import Root from "./pages/root.jsx";
-import "./styles/index.css"
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import About from "./pages/About.jsx";
+import About from "./pages/about/About.jsx";
 import Doctors from "./pages/Doctors.jsx";
 import Prices from "./pages/Prices.jsx";
 import Contacts from "./pages/Contacts.jsx";
-import SignIn from "./pages/SingIn.jsx";
+import SignIn from "./pages/signIn/SingIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
+import InfoMainPage from "./components/main/InfoMainPage.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Root/>,
         children: [
+            {
+                path: "/",
+                element: <InfoMainPage/>
+            },
             {
                 path: "/about",
                 element: <About/>

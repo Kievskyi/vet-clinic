@@ -1,0 +1,41 @@
+.infoContainerWrapper {
+
+}
+
+.infoContainer1 {
+ background-color: #ffd0d8;
+    position: relative;
+    margin: auto;
+    font-size: 20px;
+    width: 80%;
+    min-width: 1206px;
+    align-items: end;
+}
+
+.infoContainerSection {
+    margin-bottom: 100px;
+}
+
+.hello {
+    position: relative;
+    height: 200px;
+}
+
+.intoText {
+    display: inline-block;
+    width: 75%;
+    padding: 0 20px;
+}
+
+.infoImage1 {
+    width: 300px;
+    height: 200px;
+}
+
+.infoImage2 {
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
