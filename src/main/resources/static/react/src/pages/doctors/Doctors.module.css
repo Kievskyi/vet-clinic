@@ -1,0 +1,28 @@
+.doctorsPageWrapper {
+    position: relative;
+    margin: auto;
+    height: 700px;
+    width: 80%;
+    border: 1px solid #bbbbbb;
+}
+
+.doctorsPageContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.sideMenuContainer {
+    width: 20%;
+    height: 97%;
+    border: 1px solid #bbbbbb;
+    margin: 10px;
+}
+
+.doctorsContainer {
+    height: 97%;
+    width: 80%;
+    border: 1px solid #bbbbbb;
+    margin: 10px;
+}

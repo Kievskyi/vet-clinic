@@ -1,10 +1,12 @@
-import {differences} from "../../resources/text/main/differences.js"
-import InfoSection from "../InfoSection.jsx";
+import {differences} from "../resources/text/main/differences.js"
+import InfoSection from "./InfoSection.jsx";
+import PhotoSlider from "./PhotoSlider.jsx";
 
 export default function InfoMainPage() {
 
     return (
         <section>
+            <PhotoSlider/>
             <div className="information-container-wrapper">
                 <div className="information-container">
                     <div className="information-container-sections">

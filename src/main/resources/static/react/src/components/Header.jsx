@@ -1,5 +1,5 @@
 import logo from "../resources/logo/logo.jpg";
-import {Link, NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export default function Header() {
 
@@ -19,16 +19,14 @@ export default function Header() {
                 </nav>
                 {/*Посмотреть почему стили перетираються у кнопок когда див в первом NavLink и потом отрефакторить*/}
                 <nav>
-                    <NavLink to={`signup`}>
                         <div className="header_sign_buttons">
-                            <Link to={`signup`}>
+                            <Link to={`registration`}>
                                 <button type="button" className="sign_up_button">Sign up</button>
                             </Link>
-                            <Link to={`signin`}>
+                            <Link to={`authentication`}>
                                 <button type="button" className="sign_in_button">Sign In</button>
                             </Link>
                         </div>
-                    </NavLink>
                 </nav>
             </div>
         </header>

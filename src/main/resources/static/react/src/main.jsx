@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom/client'
 import Root from "./pages/root.jsx";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import About from "./pages/about/About.jsx";
-import Doctors from "./pages/Doctors.jsx";
+import Doctors from "./pages/doctors/Doctors.jsx";
 import Prices from "./pages/Prices.jsx";
 import Contacts from "./pages/Contacts.jsx";
 import SignIn from "./pages/signIn/SingIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
-import InfoMainPage from "./components/main/InfoMainPage.jsx";
+import InfoMainPage from "./components/InfoMainPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -38,11 +38,11 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: "signin",
+        path: "authentication",
         element: <SignIn/>,
     },
     {
-        path: "signup",
+        path: "registration",
         element: <SignUp/>,
     },
 ])

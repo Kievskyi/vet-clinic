@@ -1,6 +1,7 @@
 import classes from "../pages/signIn/SignIn.module.css";
 import {Button, Checkbox, Form, Input} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
+import {Link} from "react-router-dom";
 
 export default function SignInForm() {
 
@@ -56,7 +57,7 @@ export default function SignInForm() {
                 <Button type="primary" htmlType="submit" className={classes.loginFormButton}>
                     Log in
                 </Button>
-                Or <a href="">register now!</a>
+                Or <Link to={"/registration"}>register now!</Link>
             </Form.Item>
         </Form>
     )
