@@ -1,0 +1,39 @@
+.doctorsPageWrapper {
+    position: relative;
+    margin: auto;
+    height: auto;
+    width: 80%;
+}
+
+.doctorsPageContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.sideMenuContainer {
+    width: 20%;
+    height: 97%;
+    margin: 10px;
+}
+
+.sideMenuContainerGrid {
+    width: 100% !important;
+    text-align: center;
+}
+
+
+.doctorsContainer {
+    height: 97%;
+    width: 80%;
+    margin: 10px;
+    display: flex;
+    align-items: start;
+    flex-wrap: wrap;
+}
+
+.doctorsCard {
+    width: 25%;
+    margin: 5px;
+}
