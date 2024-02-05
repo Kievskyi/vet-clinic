@@ -12,7 +12,7 @@ export default function Header() {
                             <Link to={`/`}> <img className="header_logo" src={logo} alt="Photo not available"/></Link>
                             <Link to={`about`}><span>About </span></Link>
                             <Link to={`doctors`}><span>Doctors</span></Link>
-                            <Link to={`prices`}><span>Prices</span></Link>
+                            <Link to={`services`}><span>Our Services</span></Link>
                             <Link to={`contacts`}><span>Contacts</span></Link>
                         </div>
 

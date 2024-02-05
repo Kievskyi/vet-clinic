@@ -1,0 +1,72 @@
+.contactsWrapper {
+    position: relative;
+    margin: auto;
+    width: 70%;
+    height: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.contactsContainer {
+    width: 25%;
+}
+
+.text {
+    font-size: 36px;
+    margin-bottom: 70px;
+    padding-left: 15%;
+}
+
+.contacts {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 70px;
+}
+
+.phoneNumber {
+    display: inline-block;
+    color: dimgrey;
+    font-size: 18px;
+}
+
+.phoneNumber:before {
+    content: "";
+    display: inline-block;
+    background-image: url("../../resources/icons/telephone_icon.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+}
+
+.mail {
+    display: inline-block;
+    color: dimgrey;
+    font-size: 18px;
+}
+
+.mail:before {
+    content: "";
+    display: inline-block;
+    background-image: url("../../resources/icons/email_icon.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+}
+
+.mapContainer {
+    width: 50%;
+}
+
+.map {
+    display: inline-block;
+    width: 500px;
+    height: 400px;
+}

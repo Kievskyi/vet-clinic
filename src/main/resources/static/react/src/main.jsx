@@ -4,8 +4,8 @@ import Root from "./pages/root.jsx";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import About from "./pages/about/About.jsx";
 import Doctors from "./pages/doctors/Doctors.jsx";
-import Prices from "./pages/Prices.jsx";
-import Contacts from "./pages/Contacts.jsx";
+import Services from "./pages/services/Services.jsx";
+import Contacts from "./pages/contacts/Contacts.jsx";
 import SignIn from "./pages/signIn/SingIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import InfoMainPage from "./components/InfoMainPage.jsx";
@@ -28,8 +28,8 @@ const router = createBrowserRouter([
                 element: <Doctors/>,
             },
             {
-                path: "/prices",
-                element: <Prices/>,
+                path: "/services",
+                element: <Services/>,
             },
             {
                 path: "/contacts",

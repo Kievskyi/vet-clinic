@@ -2,7 +2,13 @@
     position: relative;
     margin: auto;
     height: auto;
-    width: 80%;
+    width: 70%;
+}
+
+.pageNameText {
+    font-size: 36px;
+    margin-bottom: 70px;
+    padding-left: 16%;
 }
 
 .doctorsPageContainer {
