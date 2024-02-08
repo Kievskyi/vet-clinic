@@ -1,4 +1,4 @@
-import logo from "../resources/logo/logo.jpg";
+import logo from "../resources/logo/new_logo.jpeg";
 import {Link} from "react-router-dom";
 
 export default function Header() {
@@ -7,26 +7,26 @@ export default function Header() {
         <header>
             <div className="header-container">
                 <nav>
-
-                        <div className="header_menu">
-                            <Link to={`/`}> <img className="header_logo" src={logo} alt="Photo not available"/></Link>
-                            <Link to={`about`}><span>About </span></Link>
-                            <Link to={`doctors`}><span>Doctors</span></Link>
-                            <Link to={`services`}><span>Our Services</span></Link>
-                            <Link to={`contacts`}><span>Contacts</span></Link>
-                        </div>
-
+                    <Link to={`/`}> <img className="header_logo" src={logo} alt="Photo not available"/></Link>
+                    <div className="header_menu">
+                        <Link to={`about`}><span>About </span></Link>
+                        <Link to={`doctors`}><span>Doctors</span></Link>
+                        <Link to={`services`}><span>Our Services</span></Link>
+                        <Link to={`contacts`}><span>Contacts</span></Link>
+                    </div>
                 </nav>
-                {/*Посмотреть почему стили перетираються у кнопок когда див в первом NavLink и потом отрефакторить*/}
                 <nav>
-                        <div className="header_sign_buttons">
-                            <Link to={`registration`}>
-                                <button type="button" className="sign_up_button">Sign up</button>
-                            </Link>
-                            <Link to={`authentication`}>
-                                <button type="button" className="sign_in_button">Sign In</button>
-                            </Link>
-                        </div>
+                    <div className="header_sign_buttons">
+                        <Link to={`authentication`}>
+                            <button className="cta">
+                                <div className="user-icon"></div>
+                                <svg width="15px" height="10px" viewBox="0 0 13 10">
+                                    <path d="M1,5 L11,5"></path>
+                                    <polyline points="8 1 12 5 8 9"></polyline>
+                                </svg>
+                            </button>
+                        </Link>
+                    </div>
                 </nav>
             </div>
         </header>

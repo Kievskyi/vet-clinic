@@ -2,13 +2,25 @@
     position: relative;
     margin: auto;
     height: auto;
-    width: 70%;
+    width: 74%;
 }
 
 .pageNameText {
+    color: rgba(49, 49, 49, 0.71);
     font-size: 36px;
-    margin-bottom: 70px;
-    padding-left: 16%;
+    padding-left: 13.5%;
+    line-height: 150px;
+    margin:50px 0;
+    animation: fadeInBackground 2s ease-out forwards;
+}
+
+@keyframes fadeInBackground {
+    from {
+        background-color: rgba(255, 255, 255, 0);
+    }
+    to {
+        background-color: rgba(252, 236, 227, 0.65);
+    }
 }
 
 .doctorsPageContainer {
@@ -19,7 +31,8 @@
 }
 
 .sideMenuContainer {
-    width: 20%;
+    width: 23% ;
+    min-width: 23%;
     height: 97%;
     margin: 10px;
 }
@@ -40,6 +53,7 @@
 }
 
 .doctorsCard {
-    width: 25%;
+    width: 32%;
+    height: auto;
     margin: 5px;
 }

@@ -1,21 +1,33 @@
 .contactsWrapper {
     position: relative;
     margin: auto;
-    width: 70%;
+    width: 72.5%;
     height: auto;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
 }
 
-.contactsContainer {
-    width: 25%;
+.text {
+    color: rgba(49, 49, 49, 0.71);
+    font-size: 36px;
+    padding-left: 13.5%;
+    line-height: 150px;
+    margin:50px 0;
+    animation: fadeInBackground 2s ease-out forwards;
 }
 
-.text {
-    font-size: 36px;
-    margin-bottom: 70px;
-    padding-left: 15%;
+@keyframes fadeInBackground {
+    from {
+        background-color: rgba(255, 255, 255, 0);
+    }
+    to {
+        background-color: rgba(170, 211, 223, 0.22);
+    }
+}
+
+.contactsContainer {
+    width: 25%;
 }
 
 .contacts {
@@ -32,9 +44,31 @@
 }
 
 .phoneNumber:before {
+    position: relative;
+    top: 2px;
     content: "";
     display: inline-block;
-    background-image: url("../../resources/icons/telephone_icon.png");
+    background-image: url("../../resources/icons/phone_icon_new.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+}
+
+.landlineNumber {
+    display: inline-block;
+    color: dimgrey;
+    font-size: 18px;
+}
+
+.landlineNumber:before {
+    position: relative;
+    top: 2px;
+    content: "";
+    display: inline-block;
+    background-image: url("../../resources/icons/work_phone_icon.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -50,9 +84,31 @@
 }
 
 .mail:before {
+    position: relative;
+    top: 3px;
     content: "";
     display: inline-block;
-    background-image: url("../../resources/icons/email_icon.png");
+    background-image: url("../../resources/icons/email_icon_new.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+}
+
+.workingHoursText {
+    display: inline-block;
+    color: dimgrey;
+    font-size: 18px;
+}
+
+.workingHoursText:before {
+    position: relative;
+    top: 3px;
+    content: "";
+    display: inline-block;
+    background-image: url("../../resources/icons/clock_icon_new.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

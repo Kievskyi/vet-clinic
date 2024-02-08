@@ -1,4 +1,6 @@
 import classes from "./Doctors.module.css"
+import doc_male from "../../resources/images/doctors/doctor_male.jpeg"
+import doc_fem from "../../resources/images/doctors/doctor_female.jpeg"
 import {employee} from "../../resources/employee/employee.js"
 import {Card} from 'antd';
 import {useState} from "react";
@@ -7,12 +9,6 @@ const {Meta} = Card;
 
 export default function Doctors() {
     const [speciality, setSpeciality] = useState("Cardiology")
-
-    const gridStyle = {
-        width: '100%',
-        textAlign: 'center',
-    };
-
 
     function handleSpeciality(speciality) {
         setSpeciality(speciality)
@@ -40,10 +36,9 @@ export default function Doctors() {
                                     Object.values(department[specialist]).map((doctor, index) => (
                                         <Card
                                             key={index}
-                                            hoverable
                                             className={classes.doctorsCard}
                                             cover={<img alt="example"
-                                                        src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"/>}
+                                                        src={doctor.sex === "male" ? doc_male : doc_fem}/>}
                                         >
                                             <Meta title={doctor.name + " " + doctor.surname}
                                                   description={doctor.about}/>
