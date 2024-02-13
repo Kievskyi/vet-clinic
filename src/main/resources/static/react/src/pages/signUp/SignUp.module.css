@@ -1,0 +1,24 @@
+.regFormWrapper {
+    width: 100vw;
+    height: 200vh;
+    background-color: rgba(127, 121, 188, 0.18);
+}
+
+.regFormContainer {
+    position: relative;
+    top: 25vh;
+    margin: auto;
+    width: 30%;
+    height: auto;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.regFormButton {
+    background-color: #7f79bc;
+}
+
+.regFormButton:hover {
+    background-color: #7f79bc !important;
+}

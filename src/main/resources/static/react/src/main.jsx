@@ -7,8 +7,9 @@ import Doctors from "./pages/doctors/Doctors.jsx";
 import Services from "./pages/services/Services.jsx";
 import Contacts from "./pages/contacts/Contacts.jsx";
 import SignIn from "./pages/signIn/SingIn.jsx";
-import SignUp from "./pages/SignUp.jsx";
+import SignUp from "./pages/signUp/SignUp.jsx";
 import InfoMainPage from "./components/InfoMainPage.jsx";
+import MainPageUserAccount from "./pages/account/main_page_user_account/MainPageUserAccount.jsx";
 
 const router = createBrowserRouter([
     {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
         path: "registration",
         element: <SignUp/>,
     },
+    {
+        path: "account/main",
+        element: <MainPageUserAccount/>,
+    }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

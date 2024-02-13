@@ -1,8 +1,17 @@
-.layoutStyle {
+.signInFormWrapper {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(127, 121, 188, 0.18);
+}
+
+.signInFormContainer {
     position: relative;
+    border-radius: 15px;
     margin: auto;
-    top: 300px;
-    width: 300px;
+    padding: 50px;
+    background-color: white;
+    top: 25vh;
+    width: 30%;
 }
 
 .loginForm {
@@ -21,4 +30,9 @@
 
 .loginFormButton {
     width: 100%;
+    background-color: #7f79bc;
+}
+
+.loginFormButton:hover {
+    background-color: #7f79bc !important;
 }

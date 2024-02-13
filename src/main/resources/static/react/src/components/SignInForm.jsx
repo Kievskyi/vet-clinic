@@ -46,7 +46,7 @@ export default function SignInForm() {
             </Form.Item>
             <Form.Item>
                 <Form.Item name="remember" valuePropName="checked" noStyle>
-                    <Checkbox>Remember me</Checkbox>
+                    <Checkbox className={classes.checkbox}>Remember me</Checkbox>
                 </Form.Item>
 
                 <a className={classes.loginFormForgot} href="">
@@ -54,10 +54,10 @@ export default function SignInForm() {
                 </a>
             </Form.Item>
             <Form.Item>
-                <Button type="primary" htmlType="submit" className={classes.loginFormButton}>
+                <Button type="primary" htmlType="submit" className={classes.loginFormButton} >
                     Log in
                 </Button>
-                Or <Link to={"/registration"}>register now!</Link>
+                Don't have an account? <Link to={"/registration"}>Register!</Link>
             </Form.Item>
         </Form>
     )
