@@ -2,7 +2,6 @@ import classes from "./SignUp.module.css"
 import "./SignUp.module.css"
 import {Button, Checkbox, Form, Input, Select,} from 'antd';
 import {LockOutlined, MailOutlined} from "@ant-design/icons";
-import {Link} from "react-router-dom";
 
 const {Option} = Select;
 const formItemLayout = {
@@ -180,7 +179,7 @@ export default function SignUp() {
                         </Form.Item>
                         <Form.Item {...tailFormButtonLayout}>
                             <Button type="primary" htmlType="submit" className={classes.regFormButton}>
-                                <Link to="/account/main">Register</Link>
+                                Register
                             </Button>
                         </Form.Item>
                     </Form>

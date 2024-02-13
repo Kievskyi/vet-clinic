@@ -1,0 +1,38 @@
+.layout {
+    height: 100vh;
+    width: 100vw;
+}
+
+.header {
+    padding: 0;
+    background: white;
+}
+
+.sider {
+    background-color: rgba(170, 211, 223, 0.22) !important;
+}
+
+.content {
+    margin: 24px 16px 0;
+}
+
+.contentContainer {
+    padding: 24px;
+    height: 85vh;
+    min-height: 360px;
+    background: white;
+    border-radius: 6px;
+}
+
+.logoSider {
+    height: 32px;
+    margin: 16px;
+    background: rgba(255,255,255,.2);
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+}
+
+.menu {
+    background-color: rgba(170, 211, 223, 0.22);
+}
