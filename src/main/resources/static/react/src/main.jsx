@@ -9,7 +9,11 @@ import Contacts from "./pages/contacts/Contacts.jsx";
 import SignIn from "./pages/signIn/SingIn.jsx";
 import SignUp from "./pages/signUp/SignUp.jsx";
 import InfoMainPage from "./components/InfoMainPage.jsx";
-import MainPageUserAccount from "./pages/account/main_page_user_account/MainPageUserAccount.jsx";
+import AccountMainPage from "./pages/account/AccountMainPage.jsx";
+import MyInformation from "./pages/account/my_information/MyInformation.jsx";
+import MyPets from "./pages/account/my_pets/MyPets.jsx";
+import DoctorsAppointment from "./pages/account/doctors_appointment/DoctorsAppointment.jsx";
+import VisitHistory from "./pages/account/visit_history/VisitHistory.jsx";
 
 const router = createBrowserRouter([
     {
@@ -47,8 +51,26 @@ const router = createBrowserRouter([
         element: <SignUp/>,
     },
     {
-        path: "account/main",
-        element: <MainPageUserAccount/>,
+        path: "account",
+        element: <AccountMainPage/>,
+        children: [
+            {
+                path: "info",
+                element: <MyInformation/>,
+            },
+            {
+                path: "my-pets",
+                element: <MyPets/>,
+            },
+            {
+                path: "appointment",
+                element: <DoctorsAppointment/>,
+            },
+            {
+                path: "visit-history",
+                element: <VisitHistory/>,
+            },
+        ]
     }
 ])
 

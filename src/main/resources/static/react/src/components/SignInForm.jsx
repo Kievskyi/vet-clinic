@@ -54,9 +54,11 @@ export default function SignInForm() {
                 </a>
             </Form.Item>
             <Form.Item>
-                <Button type="primary" htmlType="submit" className={classes.loginFormButton} >
-                    <Link to="/account/main">Log in</Link>
-                </Button>
+                <Link to="/account">
+                    <Button type="primary" htmlType="submit" className={classes.loginFormButton}>
+                        Log in
+                    </Button>
+                </Link>
                 Don't have an account? <Link to={"/registration"}>Register!</Link>
             </Form.Item>
         </Form>

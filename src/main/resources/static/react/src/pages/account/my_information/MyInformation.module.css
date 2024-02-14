@@ -1,0 +1,60 @@
+.layout {
+    height: 100vh;
+    width: 100vw;
+    margin: 20px 300px 0 ;
+}
+
+.header {
+    padding: 0;
+    background: #7f79bc;
+}
+
+.sider {
+    flex: 0 0 232px !important;
+    min-width: 232px !important;
+}
+
+.content {
+    margin: 24px 16px 0;
+    background-color: white !important;
+}
+
+.contentContainer {
+    padding: 40px;
+    height: 85vh;
+    min-height: 360px;
+    border-radius: 25px;
+}
+
+.logoSider {
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+    padding-left: 15px;
+    align-items: center;
+}
+
+.logoSiderContainer {
+    height:64px;
+    border-radius: 25px;
+    background-color: rgba(225, 207, 230, 0.49);
+    box-shadow: 0 7px 16px rgba(169,176,202,.25);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.greetingText {
+    font-size: 16px;
+    color: rgba(81,81,81,0.48);
+}
+
+.menu {
+    height: 50vh;
+    margin-top: 50px;
+    padding-top: 15px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+}
