@@ -1,5 +1,6 @@
 import logo from "../resources/logo/new_logo.jpeg";
 import {Link} from "react-router-dom";
+import Logotype from "./Logotype.jsx";
 
 export default function Header() {
 
@@ -7,7 +8,7 @@ export default function Header() {
         <header>
             <div className="header-container">
                 <nav>
-                    <Link to={`/`}> <img className="header_logo" src={logo} alt="Photo not available"/></Link>
+                    <Logotype path={"/"} image={logo} className={"headerLogo"}/>
                     <div className="header_menu">
                         <Link to={`about`}><span>About </span></Link>
                         <Link to={`doctors`}><span>Doctors</span></Link>

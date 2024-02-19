@@ -1,0 +1,8 @@
+.petsContainer {
+    width: 50vw;
+    height: auto;
+    min-height: 360px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,5 +1,5 @@
-import classes from "./MyInformation.module.css";
-import {Avatar, Card, Skeleton} from "antd";
+import classes from "../main_page/AccountMainPage.module.css";
+import {Avatar, Card, Divider, Skeleton} from "antd";
 import {EditOutlined} from "@ant-design/icons";
 import {client} from "../../../resources/client.js";
 import {useState} from "react";
@@ -18,8 +18,8 @@ export default function MyInformation() {
                 <div className={classes.contentHeader}>
                     <Card
                         style={{
-                            width: 400,
-                            margin: 50,
+                            width: 600,
+                            margin: 39,
                             borderRadius: 15,
                             boxShadow: "0 7px 16px rgba(169,176,202,.25)",
                         }}
@@ -29,19 +29,25 @@ export default function MyInformation() {
                     >
                         <Skeleton loading={loading} avatar active>
                             <Meta
-                                avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=2"/>}
-                                title={client.name + " " + client.surname}
+                                avatar={<Avatar size={"large"} src={client.avatar}
+                                                style={{position: "relative", bottom: 10}}/>}
+                                title={
+                                    <>
+                                        <p style={{fontSize: 22}}>{client.name + " " + client.surname}</p>
+                                        <Divider/>
+                                    </>
+                                }
                                 description={
                                     <>
-                                        <p>{`phone: ${client.phone_number}`}</p>
-                                        <p>{`email: ${client.email}`}</p>
+                                        <div style={{fontSize: 18}}>
+                                            <p>{`phone: ${client.phone}`}</p>
+                                            <p>{`email: ${client.email}`}</p>
+                                        </div>
                                     </>
                                 }
                             />
                         </Skeleton>
                     </Card>
-                </div>
-                <div className={classes.contentAnimal}>
                 </div>
             </div>
         </>

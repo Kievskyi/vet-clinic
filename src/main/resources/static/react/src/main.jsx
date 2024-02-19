@@ -9,11 +9,13 @@ import Contacts from "./pages/contacts/Contacts.jsx";
 import SignIn from "./pages/signIn/SingIn.jsx";
 import SignUp from "./pages/signUp/SignUp.jsx";
 import InfoMainPage from "./components/InfoMainPage.jsx";
-import AccountMainPage from "./pages/account/AccountMainPage.jsx";
+import AccountMainPage from "./pages/account/main_page/AccountMainPage.jsx";
 import MyInformation from "./pages/account/my_information/MyInformation.jsx";
 import MyPets from "./pages/account/my_pets/MyPets.jsx";
 import DoctorsAppointment from "./pages/account/doctors_appointment/DoctorsAppointment.jsx";
 import VisitHistory from "./pages/account/visit_history/VisitHistory.jsx";
+import Payment from "./pages/account/payment/Payment.jsx";
+import Feedback from "./pages/account/feedback/Feedback.jsx";
 
 const router = createBrowserRouter([
     {
@@ -69,6 +71,14 @@ const router = createBrowserRouter([
             {
                 path: "visit-history",
                 element: <VisitHistory/>,
+            },
+            {
+                path: "payment",
+                element: <Payment/>,
+            },
+            {
+                path: "feedback",
+                element: <Feedback/>,
             },
         ]
     }
