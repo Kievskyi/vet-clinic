@@ -7,7 +7,7 @@ export default function Services() {
     return (
         <>
             <p className={classes.pageNameText}>Our services</p>
-            <div className="services-wrapper">
+            <div className={classes.servicesWrapper}>
                 <div className={classes.servicesContainer}>
                     {services.map((service, index) =>
                         <div key={index} className={classes.service}>

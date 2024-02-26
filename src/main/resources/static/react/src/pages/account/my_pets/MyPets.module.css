@@ -1,8 +1,20 @@
 .petsContainer {
-    width: 50vw;
+    width: 45vw;
     height: auto;
     min-height: 360px;
     border-radius: 25px;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.newPet {
+    scale: 1;
+    transition-duration: 500ms;
+    width: 120px;
+    height: auto;
+}
+
+.newPet:hover {
+    scale: 1.1;
 }

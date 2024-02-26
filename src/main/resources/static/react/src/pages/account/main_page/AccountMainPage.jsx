@@ -1,7 +1,7 @@
 import classes from "./AccountMainPage.module.css"
 import React from 'react';
 import {ContactsOutlined, FormOutlined, HistoryOutlined, LogoutOutlined, UserOutlined} from '@ant-design/icons';
-import {Avatar, Divider, Layout, Menu} from 'antd';
+import {Avatar, Layout, Menu} from 'antd';
 import {Link, Outlet} from "react-router-dom";
 import {client} from "../../../resources/client.js"
 import paw from "../../../resources/icons/paw.png"
@@ -72,17 +72,17 @@ export default function AccountMainPage() {
                             </div>
                             <div>
                                 <Link to="/authentication">
-                                    <LogoutOutlined style={{height: "2em", width: "2em", color: "grey"}} className={classes.logoutIcon}/>
+                                    <LogoutOutlined style={{height: "2em", width: "2em", color: "grey"}}
+                                                    className={classes.logoutIcon}/>
                                 </Link>
                             </div>
                         </div>
-                        <div className={classes.logoHeaderAccountContainer}>
-                            <Logotype path="/account" image={logo} className={classes.logoHeaderAccount}/>
-                        </div>
+                    </div>
+                    <div className={classes.logoHeaderAccountContainer}>
+                        <Logotype path="/account" image={logo} className={classes.logoHeaderAccount}/>
                     </div>
                 </Header>
             </Layout>
-            <Divider className={classes.antDividerHorizontal}/>
             <Layout className={classes.layoutSiderAndContent}>
                 <Sider
                     theme="light"

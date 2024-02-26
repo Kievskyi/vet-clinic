@@ -1,15 +1,16 @@
-import logo from "../resources/logo/new_logo.jpeg";
+import logo from "../../resources/logo/new_logo.jpeg";
+import classes from "./Header.module.css"
 import {Link} from "react-router-dom";
-import Logotype from "./Logotype.jsx";
+import Logotype from "../Logotype.jsx";
 
 export default function Header() {
 
     return (
         <header>
-            <div className="header-container">
+            <div className={classes.headerContainer}>
                 <nav>
-                    <Logotype path={"/"} image={logo} className={"headerLogo"}/>
-                    <div className="header_menu">
+                    <Logotype path={"/"} image={logo} className={classes.headerLogo}/>
+                    <div className={classes.headerMenu}>
                         <Link to={`about`}><span>About </span></Link>
                         <Link to={`doctors`}><span>Doctors</span></Link>
                         <Link to={`services`}><span>Our Services</span></Link>
@@ -17,10 +18,10 @@ export default function Header() {
                     </div>
                 </nav>
                 <nav>
-                    <div className="header_sign_buttons">
+                    <div className={classes.headerAccountButton}>
                         <Link to={`authentication`}>
-                            <button className="cta">
-                                <div className="user-icon"></div>
+                            <button className={classes.cta}>
+                                <div className={classes.userIcon}></div>
                                 <svg width="15px" height="10px" viewBox="0 0 13 10">
                                     <path d="M1,5 L11,5"></path>
                                     <polyline points="8 1 12 5 8 9"></polyline>

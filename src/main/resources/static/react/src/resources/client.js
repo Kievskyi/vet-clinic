@@ -8,13 +8,13 @@ export const client = {
         {
             name: "Jessica",
             type: "cat",
-            age: 10,
+            born: new Date("2014-03-10"),
             breed: "regular",
         },
         {
             name: "Amur",
             type: "cat",
-            age: 10,
+            born: new Date("2014-08-10"),
             breed: "Turkish angora",
         },
     ]

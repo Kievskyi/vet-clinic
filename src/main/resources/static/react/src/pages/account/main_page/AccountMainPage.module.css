@@ -1,42 +1,46 @@
 .layoutSiderAndContent {
-    height: 100vh;
+    height: auto;
     width: 80vw ;
-    margin: 20px 15vw 0 ;
+    min-width: 800px;
+    margin: 20px 10vw 0 ;
 }
 
 .layoutHeader {
-    width: 80vw ;
-    margin: 0 15vw 0;
+    width: 100vw ;
+    padding: 0 15vw 0;
     height: 150px;
+    background: rgba(93, 203, 170, 0.34);
 }
 
 .header {
     width: 100%;
     height: auto;
     padding: 0;
-    background: white;
+    background: rgba(159, 159, 159, 0) ;
     line-height: 1;
+    min-width: 700px;
 }
 
 .headerContainer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     height: 150px;
-    width: 51%;
+    width: 232px;
+
 }
 
 .logoContainer {
     height: 64px;
     border-radius: 25px;
-    background-color: rgba(225, 207, 230, 0.49);
+    background-color: rgba(255, 247, 104, 0.32);
     box-shadow: 0 7px 16px rgba(169,176,202,.25);
-    width: 40%;
+    width: 232px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
     bottom: 8px;
+    right: 5vw;
 }
 
 .logo {
@@ -54,12 +58,16 @@
 .logoHeaderAccountContainer {
     width: 150px;
     height: 150px;
+    position: relative;
+    bottom: 50%;
+    margin: auto;
 }
 
 .logoHeaderAccount {
     position: absolute;
     width: 150px;
     height: auto;
+    border-radius: 0  50%;
 }
 
 .logoutIcon {
@@ -93,8 +101,9 @@
 
 .content {
     width: 60vw;
-    margin: 0 50px;
+    margin: 0 50px 0 5.5vw;
     background-color: white !important;
+    min-width: 400px;
 }
 
 .contentLayout {
@@ -102,7 +111,6 @@
 }
 
 .contentContainer {
-    /*padding: 40px;*/
     height: auto;
     min-height: 360px;
     border-radius: 25px;

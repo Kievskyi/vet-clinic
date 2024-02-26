@@ -1,4 +1,4 @@
-import PhotoSlider from "./PhotoSlider.jsx";
+import PhotoSlider from "./PhotoSlider/PhotoSlider.jsx";
 
 export default function InfoMainPage() {
 
