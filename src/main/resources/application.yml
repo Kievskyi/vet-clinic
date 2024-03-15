@@ -1,1 +1,9 @@
-
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/vet-clinic
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: on
