@@ -3,12 +3,13 @@ package com.denysdudnik.vet_clinic.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "role_id", discriminatorType = DiscriminatorType.INTEGER)
-@Builder(toBuilder = true)
+@SuperBuilder(toBuilder = true)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,8 +21,8 @@ public class User {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "login", nullable = false)
-    private String login;
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @Column(name = "password", nullable = false)
     private String password;

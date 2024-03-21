@@ -16,6 +16,11 @@ import DoctorsAppointment from "./pages/account/doctors_appointment/DoctorsAppoi
 import VisitHistory from "./pages/account/visit_history/VisitHistory.jsx";
 import Payment from "./pages/account/payment/Payment.jsx";
 import Feedback from "./pages/account/feedback/Feedback.jsx";
+import {Provider} from "react-redux";
+import {store} from "./store";
+import {persistor} from "./store";
+import Loading from "./components/Loading.jsx";
+import {PersistGate} from "redux-persist/integration/react";
 
 const router = createBrowserRouter([
     {
@@ -86,6 +91,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <RouterProvider router={router}></RouterProvider>
+        <Provider store={store}>
+            <PersistGate persistor={persistor} loading={<Loading />}>
+                <RouterProvider router={router}></RouterProvider>
+            </PersistGate>
+        </Provider>
     </React.StrictMode>,
 )

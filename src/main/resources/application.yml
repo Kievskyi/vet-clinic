@@ -7,3 +7,10 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: on
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+jwt:
+  secret: "dsQFUoEwQnqfaKx65h6D60ISJ2TfC4bkTOgZbSmqBT4="
+  expiration: 86400

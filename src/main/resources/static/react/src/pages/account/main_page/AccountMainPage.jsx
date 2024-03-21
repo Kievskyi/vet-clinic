@@ -1,14 +1,17 @@
 import classes from "./AccountMainPage.module.css"
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ContactsOutlined, FormOutlined, HistoryOutlined, LogoutOutlined, UserOutlined} from '@ant-design/icons';
 import {Avatar, Layout, Menu} from 'antd';
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 import {client} from "../../../resources/client.js"
 import paw from "../../../resources/icons/paw.png"
 import paymentIcon from "../../../resources/icons/payment.png"
 import {Content} from "antd/es/layout/layout.js";
 import Logotype from "../../../components/Logotype.jsx";
 import logo from "../../../resources/logo/new_logo.jpeg"
+import {useDispatch, useSelector} from "react-redux";
+import {setCustomer, setLoading} from "../../../reducers/customerSlice.js";
+import {logout} from "../../../reducers/authSlice.js";
 
 const {Header, Sider} = Layout;
 
@@ -54,6 +57,52 @@ const items = [
 );
 
 export default function AccountMainPage() {
+    const dispatch = useDispatch();
+    const navigator = useNavigate();
+    const {customer, loading} = useSelector((state) => state.customer);
+    const {token, userId} = useSelector((state) => state.auth);
+
+    useEffect(() => {
+        if (customer != null) {
+            dispatch(setLoading(false));
+        }
+    }, [customer]);
+
+    useEffect(() => {
+        async function fetchClientData() {
+            try {
+                const url = `/api/account/showPersonalInfo?userId=${userId}`;
+                if (!token) {
+                    throw new Error("No token found");
+                }
+
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const responce = await response.json();
+
+                dispatch(setCustomer(responce.customer));
+            } catch (error) {
+                console.error('Failed to fetch client data:', error);
+            }
+        }
+
+        fetchClientData();
+    }, []);
+
+    function handleLogout() {
+        dispatch(logout());
+        navigator("/authentication");
+    }
 
     return (
         <>
@@ -67,14 +116,12 @@ export default function AccountMainPage() {
                                 </div>
                                 <div className={classes.greetingTextContainer}>
                                     <p className={classes.greetingText}>Hello,</p>
-                                    {client.name + " " + client.surname}
+                                    {customer.customerInfo.firstName + " " + customer.customerInfo.lastName}
                                 </div>
                             </div>
                             <div>
-                                <Link to="/authentication">
                                     <LogoutOutlined style={{height: "2em", width: "2em", color: "grey"}}
-                                                    className={classes.logoutIcon}/>
-                                </Link>
+                                                    className={classes.logoutIcon} onClick={handleLogout}/>
                             </div>
                         </div>
                     </div>

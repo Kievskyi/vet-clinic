@@ -1,6 +1,6 @@
 package com.denysdudnik.vet_clinic.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -20,23 +20,20 @@ public class CustomerInfo {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference
     private Customer customer;
 
-    @Column(name = "name", nullable = false, length = 45)
-    private String name;
+    @Column(name = "first_name", nullable = false, length = 45)
+    private String firstName;
 
-    @Column(name = "surname", nullable = false, length = 45)
-    private String surname;
+    @Column(name = "last_name", nullable = false, length = 45)
+    private String lastName;
 
     @Column(name = "phone_number", nullable = false, length = 45)
     private String phoneNumber;
-
-    @Column(name = "email", nullable = false, length = 100)
-    private String email;
 
     @Column(name = "avatar")
     private byte[] avatar;

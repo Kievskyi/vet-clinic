@@ -3,16 +3,24 @@ import {animated, useSpring} from 'react-spring';
 import {Avatar, Button, Card, Divider, Input, Skeleton} from "antd";
 import {EditOutlined} from "@ant-design/icons";
 import {client} from "../../../resources/client.js";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {setCustomer} from "../../../reducers/customerSlice.js";
+import {setAuthData} from "../../../reducers/authSlice.js";
 
 const {Meta} = Card;
 
 export default function MyInformation() {
-    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+    const {customer, loading} = useSelector((state) => state.customer);
+    const token = useSelector(state => state.auth.token);
+    const userId = useSelector(state => state.auth.userId);
     const [active, setActive] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
-    const [email, setEmail] = useState(client.email);
-    const [phone, setPhone] = useState(client.phone);
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+    const [email, setEmail] = useState();
+    const [phoneNumber, setPhoneNumber] = useState();
 
     const style = useSpring({
         config: {duration: 200},
@@ -21,26 +29,75 @@ export default function MyInformation() {
     });
 
     const handleEditClick = () => {
+        setFirstName(customer.customerInfo.firstName);
+        setLastName(customer.customerInfo.lastName);
+        setEmail(customer.email);
+        setPhoneNumber(customer.customerInfo.phoneNumber);
         setIsEditing(!isEditing);
         setActive(!active);
     };
+
+    const handleFirstNameChange = (e) => {
+        setFirstName(e.target.value);
+    }
+
+    const handleLastNameChange = (e) => {
+        setLastName(e.target.value);
+    }
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     };
 
     const handlePhoneChange = (e) => {
-        setPhone(e.target.value);
+        setPhoneNumber(e.target.value);
     };
 
-    function handleNewInfo() {
-        setIsEditing(false);
+
+    const handleSubmit = async () => {
+        const url = `/api/account/updatePersonalInfo?userId=${userId}`;
+
+        const updatedInfo = {
+            firstName,
+            lastName,
+            phoneNumber,
+            email,
+        }
+
+        const response = await fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedInfo),
+        });
+
+        if (!response.ok) {
+            throw new Error("Something went wrong. Status : " + response.statusText + ". Body : " + response.body);
+        }
+
+        const responseData = await response.json();
+
+        if (responseData.token) {
+            dispatch(setAuthData(responseData))
+        }
+
+        dispatch(setCustomer(responseData.customer));
+
+        setIsEditing(!isEditing);
         setActive(!active);
     }
 
     useEffect(() => {
 
-    }, [active]);
+    }, [customer]);
+
+    if (loading || !customer.customerInfo) {
+        return (
+            <Skeleton loading={true} avatar active/>
+        )
+    }
 
     return (
         <>
@@ -59,7 +116,7 @@ export default function MyInformation() {
                                                     style={{position: 'relative', bottom: 10}}/>}
                                     title={
                                         <>
-                                            <p style={{fontSize: 22}}>{client.name + ' ' + client.surname}</p>
+                                            <p style={{fontSize: 22}}>{customer.customerInfo.firstName + ' ' + customer.customerInfo.lastName}</p>
                                             <Divider/>
                                         </>
                                     }
@@ -68,17 +125,27 @@ export default function MyInformation() {
                                             <div style={{fontSize: 18}}>
                                                 {isEditing ? (
                                                     <>
-                                                        <Input value={phone} onChange={handlePhoneChange}
-                                                               style={{marginBottom: 10}}/>
-                                                        <Input value={email} onChange={handleEmailChange}
-                                                               style={{marginBottom: 10}}/>
-                                                        <Button type={"primary"} onClick={handleNewInfo}
-                                                        style={{backgroundColor: "rgba(225, 207, 230, 0.49)", color: "black"}}>Submit</Button>
+                                                        First name: <Input value={firstName}
+                                                                           onChange={handleFirstNameChange}
+                                                                           style={{marginBottom: 10}}/>
+                                                        Last name: <Input value={lastName}
+                                                                          onChange={handleLastNameChange}
+                                                                          style={{marginBottom: 10}}/>
+                                                        Phone number: <Input value={phoneNumber}
+                                                                             onChange={handlePhoneChange}
+                                                                             style={{marginBottom: 10}}/>
+                                                        Email: <Input value={email} onChange={handleEmailChange}
+                                                                      style={{marginBottom: 10}}/>
+                                                        <Button type={"primary"} onClick={handleSubmit}
+                                                                style={{
+                                                                    backgroundColor: "rgba(225, 207, 230, 0.49)",
+                                                                    color: "black"
+                                                                }}>Submit</Button>
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <p>{`phone: ${phone}`}</p>
-                                                        <p>{`email: ${email}`}</p>
+                                                        <p>{`phone: ${customer.customerInfo.phoneNumber}`}</p>
+                                                        <p>{`email: ${customer.email}`}</p>
                                                     </>
                                                 )}
                                             </div>

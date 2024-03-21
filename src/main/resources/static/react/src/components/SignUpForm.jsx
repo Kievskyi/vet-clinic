@@ -1,6 +1,7 @@
 import {Button, Checkbox, Form, Input, Select} from "antd";
 import {LockOutlined, MailOutlined} from "@ant-design/icons";
 import classes from "../pages/signUp/SignUp.module.css";
+import {useNavigate} from "react-router-dom";
 
 const {Option} = Select;
 const formItemLayout = {
@@ -47,11 +48,30 @@ const tailFormButtonLayout = {
     },
 };
 
-
 export default function SignUpForm() {
     const [form] = Form.useForm();
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+    const navigate = useNavigate();
+
+    const onFinish = async (values) => {
+        try {
+            const response = await fetch("/api/registration", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values),
+            });
+
+            if (!response.ok) {
+                throw new Error("Something went wrong. Status : " + response.statusText);
+            }
+
+            navigate("/authentication");
+        } catch (error) {
+            console.error('Failed to register:', error);
+        }
+
+
     };
     const prefixSelector = (
         <Form.Item name="prefix" noStyle>
@@ -73,6 +93,40 @@ export default function SignUpForm() {
                 style={{maxWidth: 600}}
                 scrollToFirstError
             >
+                <Form.Item
+                    name="firstName"
+                    rules={[
+                        {
+                            type: 'string',
+                            message: 'The input is not valid !',
+                        },
+                        {
+                            required: true,
+                            message: 'Please input your first name!',
+                        },
+                    ]}
+                >
+                    <Input style={{width: "100%"}} prefix={<MailOutlined/>}
+                           type="string"
+                           placeholder="First name"/>
+                </Form.Item>
+                <Form.Item
+                    name="lastName"
+                    rules={[
+                        {
+                            type: 'string',
+                            message: 'The input is not valid !',
+                        },
+                        {
+                            required: true,
+                            message: 'Please input your last name!',
+                        },
+                    ]}
+                >
+                    <Input style={{width: "100%"}} prefix={<MailOutlined/>}
+                           type="string"
+                           placeholder="Last name"/>
+                </Form.Item>
                 <Form.Item
                     name="email"
                     rules={[
@@ -128,11 +182,11 @@ export default function SignUpForm() {
                     <Input.Password
                         prefix={<LockOutlined className="site-form-item-icon"/>}
                         type="password"
-                        placeholder="Password"
+                        placeholder="Confirm password"
                     />
                 </Form.Item>
                 <Form.Item
-                    name="phone"
+                    name="phoneNumber"
                     rules={[
                         {
                             required: true,

@@ -26,16 +26,13 @@ public class DoctorInfo {
     private User user;
 
     @Column(name = "name", nullable = false, length = 45)
-    private String name;
+    private String firstName;
 
     @Column(name = "surname", nullable = false, length = 45)
-    private String surname;
+    private String lastName;
 
     @Column(name = "phone_number", nullable = false, length = 45)
     private String phoneNumber;
-
-    @Column(name = "email", nullable = false, length = 45)
-    private String email;
 
     @Column(name = "address", nullable = false, length = 45)
     private String address;
