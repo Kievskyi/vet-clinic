@@ -56,6 +56,8 @@ export default function DoctorsAppointment() {
 
             const result = await response.json();
 
+            form.resetFields();
+            setAvailableTimes([]);
             setRefreshKey(prevKey => prevKey + 1);
             dispatch(setCustomerVisit(result.customerVisit));
         } catch (error) {
@@ -149,7 +151,9 @@ export default function DoctorsAppointment() {
                     form={form}
                 >
                     <Form.Item name="pet"
-                               label="Pet">
+                               label="Pet"
+                               rules={[{required:true}]}
+                    >
                         <Select>
                             {user.customerPets.map((pet) => (
                                 <Select.Option key={pet.id} value={pet.id}>{pet.name}</Select.Option>
@@ -157,14 +161,19 @@ export default function DoctorsAppointment() {
                         </Select>
                     </Form.Item>
                     <Form.Item name="clinic"
-                               label="Clinic">
+                               label="Clinic"
+                               rules={[{required:true}]}
+                    >
                         <Select onChange={handleClinicChange}>
                             {clinics.map((clinic) => (
                                 <Select.Option key={clinic.id} value={clinic.name}>{clinic.name}</Select.Option>
                             ))}
                         </Select>
                     </Form.Item>
-                    <Form.Item name="doctor" label="Doctor">
+                    <Form.Item name="doctor"
+                               label="Doctor"
+                               rules={[{required:true}]}
+                    >
                         <Cascader
                             options={
                                 Object.keys(doctors)
@@ -199,11 +208,15 @@ export default function DoctorsAppointment() {
                     </Form.Item>
 
                     <Form.Item name="date"
-                               label="Date">
+                               label="Date"
+                               rules={[{required:true}]}
+                    >
                         <DatePicker onChange={handleChangeDate}/>
                     </Form.Item>
                     <Form.Item name="time"
-                               label="Time">
+                               label="Time"
+                               rules={[{required:true}]}
+                    >
                         <Radio.Group>
                             {availableTimes.map((time) => (
                                 <Radio.Button key={time} value={time}>
@@ -213,7 +226,9 @@ export default function DoctorsAppointment() {
                         </Radio.Group>
                     </Form.Item>
                     <Form.Item name="phone"
-                               label="Phone">
+                               label="Phone"
+                               rules={[{required:true}]}
+                    >
                         <Input/>
                     </Form.Item>
                     <Form.Item name="additionalInfo"

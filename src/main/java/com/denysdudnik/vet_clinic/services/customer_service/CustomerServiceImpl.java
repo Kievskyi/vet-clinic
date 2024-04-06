@@ -94,6 +94,7 @@ public class CustomerServiceImpl implements CustomerService, UserInfoService {
         Doctor doctor = doctorRepository.findById(appointment.getDoctorId()).orElseThrow(() -> new UsernameNotFoundException("Doctor not found"));
         Clinic doctorsClinic = doctor.getDoctorInfo().getClinic();
         List<DoctorAppointment> doctorAppointments;
+        List<CustomerVisit> visits = customer.getCustomerVisit();
 
         if (doctor.getDoctorAppointments() == null) {
             doctorAppointments = new ArrayList<>();
@@ -116,6 +117,8 @@ public class CustomerServiceImpl implements CustomerService, UserInfoService {
                 .status(Status.PLANNED)
                 .visitDateTime(appointment.getDateTime())
                 .build();
+        visits.add(customerVisit);
+        customer.setCustomerVisit(visits);
         doctorAppointments.add(doctorAppointment);
         doctor.setDoctorAppointments(doctorAppointments);
 

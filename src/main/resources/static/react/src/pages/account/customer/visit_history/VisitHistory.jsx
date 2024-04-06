@@ -1,5 +1,5 @@
 import classes from "./VisitHistory.module.css";
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Divider, Modal, Table, Tag} from 'antd';
 import {useSelector} from "react-redux";
 import {selectUserDataByRole} from "../../../../selectors/selectUserByRole.js";

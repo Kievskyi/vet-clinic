@@ -23,7 +23,7 @@ public class Customer extends User {
     @JsonManagedReference
     private CustomerInfo customerInfo;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<CustomerVisit> customerVisit;
 
