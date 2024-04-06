@@ -19,24 +19,24 @@ public class CustomerPet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     @JsonBackReference
     private Customer customer;
 
-    @Column(name = "name", nullable = false, length = 45)
+    @Column(name = "name", length = 45)
     private String name;
 
-    @Column(name = "type", nullable = false, length = 45)
+    @Column(name = "type", length = 45)
     private String type;
 
-    @Column(name = "breed", nullable = false, length = 45)
+    @Column(name = "breed", length = 45)
     private String breed;
 
-    @Column(name = "birth_date", nullable = false)
+    @Column(name = "birth_date")
     private LocalDate birthDate;
 }

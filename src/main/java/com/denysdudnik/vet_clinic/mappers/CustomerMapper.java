@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 public interface CustomerMapper {
 
     @Mapping(target = "role", source = "role.description")
+    @Mapping(target = "userInfo", source = "customerInfo")
     CustomerDto customerToCustomerDto(Customer customer);
 
 }

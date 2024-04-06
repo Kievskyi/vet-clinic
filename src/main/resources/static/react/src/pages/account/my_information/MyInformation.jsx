@@ -3,18 +3,19 @@ import {animated, useSpring} from 'react-spring';
 import {Avatar, Button, Card, Divider, Input, Skeleton} from "antd";
 import {EditOutlined} from "@ant-design/icons";
 import {client} from "../../../resources/client.js";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {setCustomer} from "../../../reducers/customerSlice.js";
 import {setAuthData} from "../../../reducers/authSlice.js";
+import {selectUserDataByRole} from "../../../selectors/selectUserByRole.js";
+import {setAdministrator, setCustomer, setDoctor, setLoading} from "../../../reducers/userSlice.js";
 
 const {Meta} = Card;
 
 export default function MyInformation() {
     const dispatch = useDispatch();
-    const {customer, loading} = useSelector((state) => state.customer);
-    const token = useSelector(state => state.auth.token);
-    const userId = useSelector(state => state.auth.userId);
+    const isLoading = useSelector((state) => state.user.loading);
+    const user = useSelector(selectUserDataByRole);
+    const {token, userId} = useSelector((state) => state.auth);
     const [active, setActive] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [firstName, setFirstName] = useState();
@@ -29,13 +30,25 @@ export default function MyInformation() {
     });
 
     const handleEditClick = () => {
-        setFirstName(customer.customerInfo.firstName);
-        setLastName(customer.customerInfo.lastName);
-        setEmail(customer.email);
-        setPhoneNumber(customer.customerInfo.phoneNumber);
+        setFirstName(user.userInfo.firstName);
+        setLastName(user.userInfo.lastName);
+        setPhoneNumber(user.userInfo.phoneNumber);
+        setEmail(user.email);
         setIsEditing(!isEditing);
         setActive(!active);
     };
+
+    function handleDispatchUserByRole(responseData) {
+        dispatch(setLoading(true));
+        if (user.role === "CUSTOMER") {
+            dispatch(setCustomer(responseData.customer));
+        } else if (user.role === "DOCTOR") {
+            dispatch(setDoctor(responseData.doctor));
+        } else if (user.role === "ADMINISTRATOR") {
+            dispatch(setAdministrator(responseData.administrator));
+        }
+        dispatch(setLoading(false));
+    }
 
     const handleFirstNameChange = (e) => {
         setFirstName(e.target.value);
@@ -83,17 +96,14 @@ export default function MyInformation() {
             dispatch(setAuthData(responseData))
         }
 
-        dispatch(setCustomer(responseData.customer));
+        handleDispatchUserByRole(responseData);
 
         setIsEditing(!isEditing);
         setActive(!active);
     }
 
-    useEffect(() => {
 
-    }, [customer]);
-
-    if (loading || !customer.customerInfo) {
+    if (isLoading) {
         return (
             <Skeleton loading={true} avatar active/>
         )
@@ -110,13 +120,13 @@ export default function MyInformation() {
                                 !isEditing && <EditOutlined key="edit" onClick={handleEditClick}/>,
                             ]}
                         >
-                            <Skeleton loading={loading} avatar active>
+                            <Skeleton loading={isLoading} avatar active>
                                 <Meta
                                     avatar={<Avatar size={'large'} src={client.avatar}
                                                     style={{position: 'relative', bottom: 10}}/>}
                                     title={
                                         <>
-                                            <p style={{fontSize: 22}}>{customer.customerInfo.firstName + ' ' + customer.customerInfo.lastName}</p>
+                                            <p style={{fontSize: 22}}>{user?.userInfo.firstName + ' ' + user?.userInfo.lastName}</p>
                                             <Divider/>
                                         </>
                                     }
@@ -144,8 +154,8 @@ export default function MyInformation() {
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <p>{`phone: ${customer.customerInfo.phoneNumber}`}</p>
-                                                        <p>{`email: ${customer.email}`}</p>
+                                                        <p>{`phone: ${user?.userInfo.phoneNumber}`}</p>
+                                                        <p>{`email: ${user?.email}`}</p>
                                                     </>
                                                 )}
                                             </div>

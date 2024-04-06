@@ -1,10 +1,13 @@
 package com.denysdudnik.vet_clinic.services.user_service;
 
-import com.denysdudnik.vet_clinic.entity.User;
+import com.denysdudnik.vet_clinic.dto.UserDto;
+import com.denysdudnik.vet_clinic.entity.Role;
 
 public interface UserService {
 
-    User findUserById(User user);
+    UserDto findById(Integer userId);
 
-    User findUserByEmail(String email);
+    UserDto findByEmail(String email);
+
+    Role findRoleByUserId(Integer userId);
 }

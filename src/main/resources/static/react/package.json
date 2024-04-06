@@ -13,6 +13,7 @@
     "@ant-design/icons": "^5.2.6",
     "@reduxjs/toolkit": "^2.2.1",
     "antd": "^5.13.2",
+    "firebase": "^10.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
@@ -23,7 +24,8 @@
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
     "styled-components": "^6.1.8",
-    "swiper": "^11.0.5"
+    "swiper": "^11.0.5",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

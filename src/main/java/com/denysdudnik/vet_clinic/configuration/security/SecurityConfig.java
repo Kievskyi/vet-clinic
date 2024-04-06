@@ -28,7 +28,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/authentication").permitAll()
                         .requestMatchers("/registration").permitAll()
+                        .requestMatchers("/admin/register-new-doctor").hasRole("ADMINISTRATOR")
+                        .requestMatchers("/doctor/**").hasRole("DOCTOR")
                         .requestMatchers("/account/**").hasAnyRole("CUSTOMER", "ADMINISTRATOR", "DOCTOR")
+                        .requestMatchers("/clinic-info/**").hasAnyRole("CUSTOMER", "ADMINISTRATOR", "DOCTOR")
                         .anyRequest().authenticated()
                 ).addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 

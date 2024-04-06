@@ -1,10 +1,12 @@
 package com.denysdudnik.vet_clinic.entity;
 
+import com.denysdudnik.vet_clinic.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "customer_visits", schema = "vet-clinic")
@@ -16,20 +18,38 @@ import org.hibernate.annotations.OnDeleteAction;
 public class CustomerVisit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
 
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private Customer customer;
 
-    @Column(name = "pet", nullable = false, length = 45)
-    private String pet;
+    @ManyToOne
+    @JoinColumn(name = "pet_id")
+    private CustomerPet pet;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "clinic_id", nullable = false)
+    @JoinColumn(name = "clinic_id")
     private Clinic clinic;
 
+    @Column(name = "visit_date")
+    private LocalDateTime visitDateTime;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "customer_visits_services",
+            joinColumns = @JoinColumn(name = "customer_visit_id"),
+            inverseJoinColumns = @JoinColumn(name = "service_id")
+    )
+    private Set<PetService> petServices;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
+
+    @Lob
+    @Column(name = "doctor_report", columnDefinition = "TEXT")
+    private String doctorReport;
 }

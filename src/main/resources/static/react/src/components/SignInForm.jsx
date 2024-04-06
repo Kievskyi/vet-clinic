@@ -2,21 +2,13 @@ import classes from "../pages/signIn/SignIn.module.css";
 import {Button, Checkbox, Form, Input} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {Link, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useDispatch} from "react-redux";
 import {setAuthData} from "../reducers/authSlice.js";
 
 export default function SignInForm() {
     const dispatch = useDispatch();
     let navigate = useNavigate();
-    const token = useSelector(state => state.auth.token);
-    const userId = useSelector(state => state.auth.userId);
 
-    useEffect(() => {
-        if (token && userId) {
-            navigate("/account");
-        }
-    }, [token, userId]);
 
     const onFinish = async (values) => {
         try {
@@ -34,6 +26,7 @@ export default function SignInForm() {
 
             const responseData = await response.json();
             dispatch(setAuthData(responseData));
+            navigate("/account");
         } catch (error) {
             console.error('Authorisation failed:', error);
         }

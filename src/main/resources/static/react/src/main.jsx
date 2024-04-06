@@ -11,16 +11,19 @@ import SignUp from "./pages/signUp/SignUp.jsx";
 import InfoMainPage from "./components/InfoMainPage.jsx";
 import AccountMainPage from "./pages/account/main_page/AccountMainPage.jsx";
 import MyInformation from "./pages/account/my_information/MyInformation.jsx";
-import MyPets from "./pages/account/my_pets/MyPets.jsx";
-import DoctorsAppointment from "./pages/account/doctors_appointment/DoctorsAppointment.jsx";
-import VisitHistory from "./pages/account/visit_history/VisitHistory.jsx";
-import Payment from "./pages/account/payment/Payment.jsx";
-import Feedback from "./pages/account/feedback/Feedback.jsx";
+import MyPets from "./pages/account/customer/my_pets/MyPets.jsx";
+import DoctorsAppointment from "./pages/account/customer/doctor_appointment/DoctorsAppointment.jsx";
+import VisitHistory from "./pages/account/customer/visit_history/VisitHistory.jsx";
+import Payment from "./pages/account/customer/payment/Payment.jsx";
+import Feedback from "./pages/account/customer/feedback/Feedback.jsx";
 import {Provider} from "react-redux";
 import {store} from "./store";
 import {persistor} from "./store";
 import Loading from "./components/Loading.jsx";
 import {PersistGate} from "redux-persist/integration/react";
+import NewDoctor from "./pages/account/administrator/new_doctor/NewDoctor.jsx";
+import Statistics from "./pages/account/administrator/statistics/Statistics.jsx";
+import MyAppointments from "./pages/account/doctor/my_appointments/MyAppointments.jsx";
 
 const router = createBrowserRouter([
     {
@@ -84,6 +87,18 @@ const router = createBrowserRouter([
             {
                 path: "feedback",
                 element: <Feedback/>,
+            },
+            {
+                path: "new-doctor",
+                element: <NewDoctor/>,
+            },
+            {
+                path: "statistics",
+                element: <Statistics/>,
+            },
+            {
+                path: "my-appointments",
+                element: <MyAppointments/>,
             },
         ]
     }

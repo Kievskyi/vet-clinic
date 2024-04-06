@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CustomerDto extends UserDto {
 
-    private CustomerInfo customerInfo;
+    private CustomerInfo userInfo;
     private List<CustomerVisit> customerVisit;
     private List<CustomerPet> customerPets;
 }

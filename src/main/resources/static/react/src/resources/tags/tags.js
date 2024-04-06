@@ -1,6 +1,6 @@
 export const tags = [{
     operation: {
-        name: 'operation',
+        description: 'operation',
         color: 'red',
         customStyles: true,
     },

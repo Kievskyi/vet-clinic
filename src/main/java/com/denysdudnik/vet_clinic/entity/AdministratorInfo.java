@@ -1,6 +1,6 @@
 package com.denysdudnik.vet_clinic.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -19,11 +19,11 @@ public class AdministratorInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore
-    private Administrator user;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference
+    private Administrator administrator;
 
     @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;

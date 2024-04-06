@@ -1,5 +1,6 @@
 package com.denysdudnik.vet_clinic.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,10 +17,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class Administrator extends User {
 
-    @OneToOne
-    @JoinColumn(name = "id")
-    @MapsId
+    @OneToOne(mappedBy = "administrator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private AdministratorInfo administratorInfo;
-
-    //employees
 }

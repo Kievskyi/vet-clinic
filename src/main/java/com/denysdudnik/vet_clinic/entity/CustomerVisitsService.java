@@ -20,12 +20,11 @@ public class CustomerVisitsService {
     @MapsId("customerVisitId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "customer_visit_id", nullable = false)
+    @JoinColumn(name = "customer_visit_id")
     private CustomerVisit customerVisit;
 
     @MapsId("serviceId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "service_id", nullable = false)
-    private Services service;
-
+    @JoinColumn(name = "service_id")
+    private PetService petService;
 }

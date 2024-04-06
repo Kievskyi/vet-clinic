@@ -6,7 +6,7 @@
 }
 
 .layoutHeader {
-    width: 100vw ;
+    width: 100%;
     padding: 0 15vw 0;
     height: 150px;
     background: rgba(93, 203, 170, 0.34);
@@ -26,7 +26,6 @@
     align-items: center;
     height: 150px;
     width: 232px;
-
 }
 
 .logoContainer {

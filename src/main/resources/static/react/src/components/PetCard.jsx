@@ -11,8 +11,8 @@ export default function PetCard({pet, onDelete, isActive}) {
     });
 
     function getFormattedDate(date) {
-        const year = date.getFullYear(); // Получаем год
-        const month = date.getMonth() + 1; // Получаем месяц (прибавляем 1, чтобы получить 1-12)
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
         const day = date.getDate();
 
         return (`${year}-${month}-${day}`);
@@ -39,7 +39,7 @@ export default function PetCard({pet, onDelete, isActive}) {
                                 <div style={{fontSize: 18}}>
                                     <p>Type: {pet.type}</p>
                                     <p>Breed: {pet.breed}</p>
-                                    <p>Born: {getFormattedDate(pet.born)}</p>
+                                    <p>Born: {getFormattedDate(new Date(pet.birthDate))}</p>
                                 </div>
                             </>
                         }

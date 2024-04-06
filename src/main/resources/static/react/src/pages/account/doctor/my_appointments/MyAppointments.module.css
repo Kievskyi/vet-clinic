@@ -1,0 +1,20 @@
+.appointmentsContainer {
+    padding: 40px 70px;
+    height: 85vh;
+    min-height: 360px;
+    border-radius: 25px;
+}
+
+.datePicker {
+    margin-bottom: 20px;
+}
+
+.button {
+    color: black;
+    transition: color 0.3s, border-color 0.3s, box-shadow 0.3s ease;
+}
+
+.button:hover {
+    color: gray !important;
+    border-color: white !important;
+}

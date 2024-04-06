@@ -1,10 +1,12 @@
 package com.denysdudnik.vet_clinic.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "doctor_info", schema = "vet-clinic")
@@ -19,30 +21,33 @@ public class DoctorInfo {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore
-    private User user;
+    @JsonBackReference
+    private Doctor doctor;
 
-    @Column(name = "name", nullable = false, length = 45)
+    @Column(name = "name", length = 45)
     private String firstName;
 
-    @Column(name = "surname", nullable = false, length = 45)
+    @Column(name = "surname", length = 45)
     private String lastName;
 
-    @Column(name = "phone_number", nullable = false, length = 45)
+    @Column(name = "phone_number", length = 45)
     private String phoneNumber;
 
-    @Column(name = "address", nullable = false, length = 45)
+    @Column(name = "address", length = 45)
     private String address;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @OnDelete(action = OnDeleteAction.SET_NULL)
     @JoinColumn(name = "clinic_id")
     private Clinic clinic;
 
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
+
     @OneToOne
     @JoinColumn(name = "speciality")
-    private Specialties specialties;
+    private Specialty specialty;
 }

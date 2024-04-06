@@ -1,6 +1,10 @@
 package com.denysdudnik.vet_clinic.dto;
 
-import lombok.*;
+import com.denysdudnik.vet_clinic.entity.AdministratorInfo;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
@@ -10,6 +14,5 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class AdministratorDto extends UserDto {
 
-    private String info;
-
+    private AdministratorInfo userInfo;
 }

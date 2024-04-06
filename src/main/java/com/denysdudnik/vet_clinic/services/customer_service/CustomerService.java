@@ -1,8 +1,6 @@
 package com.denysdudnik.vet_clinic.services.customer_service;
 
-import com.denysdudnik.vet_clinic.dto.CustomerDto;
-import com.denysdudnik.vet_clinic.dto.UserRequest;
-import com.denysdudnik.vet_clinic.dto.CustomerResponse;
+import com.denysdudnik.vet_clinic.dto.*;
 import com.denysdudnik.vet_clinic.entity.Customer;
 
 public interface CustomerService {
@@ -15,7 +13,10 @@ public interface CustomerService {
 
     Customer save(UserRequest userRequest);
 
-    CustomerResponse buildResponse(CustomerDto customer);
+    CustomerDto addNewAppointment(Integer customerId, Integer petId, Appointment appointment);
 
-    CustomerResponse buildResponse(String token, CustomerDto customer);
+    UserResponse buildResponse(CustomerDto customer);
+
+    UserResponse buildResponse(String token, CustomerDto customer);
+
 }
