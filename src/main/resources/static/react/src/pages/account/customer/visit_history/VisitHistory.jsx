@@ -1,5 +1,5 @@
 import classes from "./VisitHistory.module.css";
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Divider, Modal, Table, Tag} from 'antd';
 import {useSelector} from "react-redux";
 import {selectUserDataByRole} from "../../../../selectors/selectUserByRole.js";
@@ -13,6 +13,8 @@ export default function VisitHistory() {
     const [isDocReportModalOpen, setIsDocReportModalOpen] = useState(false);
     const [isAnalyzesModalOpen, setIsAnalyzesModalOpen] = useState(false);
     const [refreshModal, setRefreshModal] = useState(0);
+
+    const sortedUserVisits = [...user?.customerVisit].sort((a, b) => new Date(b.visitDateTime) - new Date(a.visitDateTime));
 
     const columns = [
         {
@@ -28,10 +30,22 @@ export default function VisitHistory() {
             render: (clinicName) => <span>{clinicName}</span>
         },
         {
-            title: 'Visit date',
-            dataIndex: 'visitDateTime',
-            key: 'visitDate',
-            render: (visitDate) => <span>{visitDate}</span>
+            title: 'Date',
+            key: 'date',
+            render: (record) => {
+                const dateTimeString = record.visitDateTime;
+                const dateString = dateTimeString.split('T')[0];
+                return <span>{dateString}</span>;
+            },
+        },
+        {
+            title: 'Time',
+            key: 'time',
+            render: (record) => {
+                const dateTimeString = record.visitDateTime;
+                const timeString = dateTimeString.split('T')[1];
+                return <span>{timeString}</span>;
+            },
         },
         {
             title: 'Services',
@@ -124,6 +138,7 @@ export default function VisitHistory() {
         setCurrentPage(pagination.current);
     };
 
+
     return (
         <>
             <div className={classes.historyContainer}>
@@ -131,7 +146,7 @@ export default function VisitHistory() {
                     <Table
                         rowKey="id"
                         columns={columns}
-                        dataSource={user?.customerVisit}
+                        dataSource={sortedUserVisits}
                         pagination={{
                             position: ["bottom"],
                             current: currentPage,

@@ -25,6 +25,5 @@ public class ServicePrice {
 
     @ManyToOne
     @JoinColumn(name = "service_id")
-//    @JsonManagedReference
     private PetService service;
 }

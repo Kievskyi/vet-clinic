@@ -132,6 +132,7 @@ CREATE TABLE `customer_invoice`
     `id`                int NOT NULL AUTO_INCREMENT,
     `customer_visit_id` int   DEFAULT NULL,
     `total_amount`      float DEFAULT NULL,
+    `payment_status`    enum ('PAID','UNPAID'),
     PRIMARY KEY (`id`),
     KEY `customer_invoice_customer_visits_id_fk` (`customer_visit_id`),
     CONSTRAINT `customer_invoice_customer_visits_id_fk` FOREIGN KEY (`customer_visit_id`) REFERENCES `customer_visits` (`id`)
@@ -148,10 +149,10 @@ LOCK TABLES `customer_invoice` WRITE;
 /*!40000 ALTER TABLE `customer_invoice`
     DISABLE KEYS */;
 INSERT INTO `customer_invoice`
-VALUES (1, 15, 1300),
-       (2, 16, 1300),
-       (3, 17, 1300),
-       (5, 18, 6530);
+VALUES (1, 15, 1300, 'UNPAID'),
+       (2, 16, 1300, 'UNPAID'),
+       (3, 17, 1300, 'UNPAID'),
+       (5, 18, 6530, 'UNPAID');
 /*!40000 ALTER TABLE `customer_invoice`
     ENABLE KEYS */;
 UNLOCK TABLES;

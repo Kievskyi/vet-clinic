@@ -1,3 +1,32 @@
-.form {
+.cardContainer {
     padding: 40px 100px;
+    height: auto;
+    min-height: 360px;
+    border-radius: 25px;
+}
+
+.flexContainer {
+    padding: 33px;
+}
+
+.payButtonContainer {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.payButton {
+    background-color: rgba(181, 121, 188, 0.27);
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+}
+
+.payButton:hover {
+    background-color: rgba(181, 121, 188, 0.39) !important;
+}
+
+.pagination {
+    padding-left: 100px;
 }

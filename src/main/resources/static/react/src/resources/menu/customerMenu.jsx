@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {ContactsOutlined, FormOutlined, HistoryOutlined, UserOutlined} from "@ant-design/icons";
+import {ContactsOutlined, HistoryOutlined, UserOutlined} from "@ant-design/icons";
 import React from "react";
 import paw from "../icons/paw.png";
 import paymentIcon from "../icons/payment.png";
@@ -19,7 +19,8 @@ export const customerMenuItems = [
     },
     {
         name: <Link to={"my-pets"}>My pets</Link>,
-        icon: () => <Link to={"my-pets"}><PawIcon alt={"Unable to load a picture"} style={{width: 15, height: 15}}/></Link>,
+        icon: () => <Link to={"my-pets"}><PawIcon alt={"Unable to load a picture"}
+                                                  style={{width: 15, height: 15}}/></Link>,
     },
     {
         name: <Link to={"visit-history"}>Visit history</Link>,
@@ -28,10 +29,6 @@ export const customerMenuItems = [
     {
         name: <Link to={"appointment"}>{"Doctor's appointment"}</Link>,
         icon: () => <Link to={"appointment"}><ContactsOutlined/></Link>,
-    },
-    {
-        name: <Link to={"feedback"}>Feedback</Link>,
-        icon: () => <Link to={"feedback"}><FormOutlined/></Link>
     },
     {
         name: <Link to={"payment"}>Payment</Link>,

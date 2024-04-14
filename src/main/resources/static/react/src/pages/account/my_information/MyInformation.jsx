@@ -1,19 +1,34 @@
 import classes from "../main_page/AccountMainPage.module.css";
 import {animated, useSpring} from 'react-spring';
-import {Avatar, Button, Card, Divider, Input, Skeleton} from "antd";
-import {EditOutlined} from "@ant-design/icons";
-import {client} from "../../../resources/client.js";
+import {Avatar, Button, Card, Divider, Input, message, Skeleton, Upload} from "antd";
+import {EditOutlined, LoadingOutlined, PlusOutlined} from "@ant-design/icons";
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setAuthData} from "../../../reducers/authSlice.js";
 import {selectUserDataByRole} from "../../../selectors/selectUserByRole.js";
-import {setAdministrator, setCustomer, setDoctor, setLoading} from "../../../reducers/userSlice.js";
+import {setAdministrator, setAvatar, setCustomer, setDoctor, setLoading} from "../../../reducers/userSlice.js";
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
+import {imageDB} from "../../../Config.js";
+import {client} from "../../../resources/client.js"
+
+const beforeUpload = (file) => {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+        message.error('You can only upload JPG/PNG file!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+        message.error('Image must smaller than 2MB!');
+    }
+    return isJpgOrPng && isLt2M;
+};
 
 const {Meta} = Card;
 
 export default function MyInformation() {
     const dispatch = useDispatch();
     const isLoading = useSelector((state) => state.user.loading);
+    const avatar = useSelector((state) => state.user.avatar);
     const user = useSelector(selectUserDataByRole);
     const {token, userId} = useSelector((state) => state.auth);
     const [active, setActive] = useState(false);
@@ -22,6 +37,48 @@ export default function MyInformation() {
     const [lastName, setLastName] = useState();
     const [email, setEmail] = useState();
     const [phoneNumber, setPhoneNumber] = useState();
+    const [fileLoading, setFileLoading] = useState(false);
+    const [imageUrl, setImageUrl] = useState('');
+
+    const handleChange = async (info) => {
+        if (info.file.status === 'uploading') {
+            setFileLoading(true);
+            return;
+        }
+        if (info.file.status === 'done') {
+            setFileLoading(false);
+        }
+    };
+
+    const uploadButton = (
+        <button
+            style={{
+                border: 0,
+                background: 'none',
+            }}
+            type="button"
+        >
+            {fileLoading ? <LoadingOutlined/> : <PlusOutlined/>}
+            <div
+                style={{
+                    marginTop: 8,
+                }}
+            >
+                Upload
+            </div>
+        </button>
+    );
+
+    const handleUploadFile = async (file) => {
+        const imgRef = ref(imageDB, `user_avatars/${userId}`);
+        try {
+            await uploadBytes(imgRef, file);
+            return await getDownloadURL(imgRef);
+        } catch (error) {
+            console.error('Error uploading file to Firebase:', error);
+            throw error;
+        }
+    };
 
     const style = useSpring({
         config: {duration: 200},
@@ -122,8 +179,47 @@ export default function MyInformation() {
                         >
                             <Skeleton loading={isLoading} avatar active>
                                 <Meta
-                                    avatar={<Avatar size={'large'} src={client.avatar}
-                                                    style={{position: 'relative', bottom: 10}}/>}
+                                    avatar={isEditing ? (
+                                        <Upload
+                                            name="avatar"
+                                            listType="picture-circle"
+                                            className="avatar-uploader"
+                                            showUploadList={false}
+                                            customRequest={({file}) => {
+                                                handleUploadFile(file)
+                                                    .then((url) => {
+                                                        dispatch(setAvatar(url));
+                                                        setImageUrl(url);
+                                                    })
+                                                    .catch((error) => {
+                                                        console.error('Error uploading file:', error);
+                                                    });
+                                            }}
+                                            beforeUpload={beforeUpload}
+                                            onChange={handleChange}
+                                        >
+                                            {imageUrl ? (
+
+                                                <img
+                                                    src={avatar}
+                                                    alt="avatar"
+                                                    style={{
+                                                        width: 100,
+                                                        height: 100,
+                                                        objectFit: 'cover',
+                                                        borderRadius: '50%',
+                                                        display: 'block',
+                                                    }}
+                                                />
+
+                                            ) : (
+                                                uploadButton
+                                            )}
+                                        </Upload>
+                                    ) : (
+                                        <Avatar size={'large'} src={avatar != null ? avatar : client.avatar}
+                                                style={{position: 'relative', bottom: 10}}/>
+                                    )}
                                     title={
                                         <>
                                             <p style={{fontSize: 22}}>{user?.userInfo.firstName + ' ' + user?.userInfo.lastName}</p>

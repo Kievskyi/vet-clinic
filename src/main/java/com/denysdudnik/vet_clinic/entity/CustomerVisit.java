@@ -1,6 +1,6 @@
 package com.denysdudnik.vet_clinic.entity;
 
-import com.denysdudnik.vet_clinic.enums.Status;
+import com.denysdudnik.vet_clinic.enums.AppointmentStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -47,7 +47,7 @@ public class CustomerVisit {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status status;
+    private AppointmentStatus appointmentStatus;
 
     @Lob
     @Column(name = "doctor_report", columnDefinition = "TEXT")

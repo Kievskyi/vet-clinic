@@ -2,7 +2,7 @@ package com.denysdudnik.vet_clinic.dto;
 
 import com.denysdudnik.vet_clinic.entity.CustomerPet;
 import com.denysdudnik.vet_clinic.entity.CustomerVisit;
-import com.denysdudnik.vet_clinic.enums.Status;
+import com.denysdudnik.vet_clinic.enums.AppointmentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,5 +22,5 @@ public class DoctorAppointmentDto {
     private CustomerDto customer;
     private CustomerPet pet;
     private LocalDateTime visitDateTime;
-    private Status status;
+    private AppointmentStatus appointmentStatus;
 }

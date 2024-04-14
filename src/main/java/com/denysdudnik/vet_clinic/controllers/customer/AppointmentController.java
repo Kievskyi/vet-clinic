@@ -1,4 +1,4 @@
-package com.denysdudnik.vet_clinic.controllers.customer_account;
+package com.denysdudnik.vet_clinic.controllers.customer;
 
 import com.denysdudnik.vet_clinic.dto.Appointment;
 import com.denysdudnik.vet_clinic.dto.CustomerDto;

@@ -20,6 +20,9 @@
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <jackson.version>2.17.0</jackson.version>
         <jjwt.version>0.11.2</jjwt.version>
+        <stripe.version>24.22.0</stripe.version>
+        <mailjet.version>4.2.0</mailjet.version>
+        <elasticemail.version>4.0.16</elasticemail.version>
     </properties>
     <dependencies>
         <dependency>
@@ -111,6 +114,16 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>${stripe.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mailjet</groupId>
+            <artifactId>mailjet-client</artifactId>
+            <version>${mailjet.version}</version>
         </dependency>
     </dependencies>
 

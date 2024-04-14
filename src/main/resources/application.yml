@@ -22,3 +22,7 @@ logging:
 jwt:
   secret: "dsQFUoEwQnqfaKx65h6D60ISJ2TfC4bkTOgZbSmqBT4="
   expiration: 86400
+stripe:
+  api_key: "sk_test_51P2srwJriED6n5QK5icHdkX8pr8t8JRmEt8cmukD9qthkmSznbkYppwLXI9QOfA2m4G8HJ73TA0FkDZRGEJGlB4A00cS5u7CyJ"
+domain:
+  front.end: "http://localhost:5173/account"

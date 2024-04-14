@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
+    avatar: null,
     administrator: null,
     doctor: null,
     customer: null,
@@ -14,6 +15,9 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
+        setAvatar: (state, action) => {
+            state.avatar = action.payload;
+        },
         setCustomer: (state, action) => {
             state.customer = action.payload;
         },
@@ -54,5 +58,6 @@ export const {
     setCustomerVisit,
     setAppointmentsLoading,
     setIsModalLoaded,
+    setAvatar
 } = userSlice.actions;
 export default userSlice.reducer;

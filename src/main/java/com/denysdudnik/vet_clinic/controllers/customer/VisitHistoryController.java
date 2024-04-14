@@ -1,4 +1,4 @@
-package com.denysdudnik.vet_clinic.controllers.customer_account;
+package com.denysdudnik.vet_clinic.controllers.customer;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class VisitHistoryController {
 
-    @GetMapping("/showVisitHistory")
-    public ResponseEntity<?> showVisitHistory(@RequestParam Integer customerId) {
+    @GetMapping("/all-visits")
+    public ResponseEntity<?> allVisits(@RequestParam Integer userId) {
         return ResponseEntity.ok().build();
     }
 }

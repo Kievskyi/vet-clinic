@@ -1,5 +1,6 @@
 package com.denysdudnik.vet_clinic.entity;
 
+import com.denysdudnik.vet_clinic.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,4 +24,8 @@ public class CustomerInvoice {
 
     @Column(name = "total_amount")
     private Float totalAmount;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_status")
+    private PaymentStatus paymentStatus;
 }

@@ -15,7 +15,6 @@ import java.util.List;
 public class DoctorAppointmentsController {
     private final DoctorAppointmentService appointmentService;
 
-
     @GetMapping("/all-appointments")
     public ResponseEntity<List<DoctorAppointmentDto>> allAppointments(@RequestParam Integer userId) {
         List<DoctorAppointmentDto> appointments;

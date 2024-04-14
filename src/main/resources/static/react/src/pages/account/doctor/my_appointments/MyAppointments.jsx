@@ -20,6 +20,8 @@ export default function MyAppointments() {
     const {token, userId} = useSelector((state) => state.auth);
     const isAppointmentsLoading = useSelector((state) => state.user.isAppointmentsLoading)
 
+    const sortedAppointments = [...filteredAppointments].sort((a, b) => new Date(b.visitDateTime) - new Date(a.visitDateTime));
+
     const columns = [
         {
             title: 'Pet',
@@ -161,7 +163,6 @@ export default function MyAppointments() {
             let appointments = await response.json();
             setAppointments(appointments);
             setFilteredAppointments(appointments);
-            console.log(appointments)
         } catch (error) {
             console.error("Failed to load appointments:", error);
         } finally {
@@ -186,12 +187,12 @@ export default function MyAppointments() {
                 <Table
                     columns={columns}
                     onChange={handleTableChange}
-                    dataSource={filteredAppointments}
+                    dataSource={sortedAppointments}
                     pagination={{
                         position: ["bottom"],
                         current: currentPage,
                         pageSize: pageSize,
-                        total: filteredAppointments.length,
+                        total: sortedAppointments.length,
                         onChange: (page) => setCurrentPage(page),
                     }}
 

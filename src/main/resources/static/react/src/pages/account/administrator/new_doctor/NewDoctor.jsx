@@ -127,23 +127,33 @@ export default function NewDoctor() {
                     form={form}
                 >
                     <Form.Item name="firstName"
-                               label="First name">
+                               label="First name"
+                               rules={[{required:true}]}
+                    >
                         <Input/>
                     </Form.Item>
                     <Form.Item name="lastName"
-                               label="Last name">
+                               label="Last name"
+                               rules={[{required:true}]}
+                    >
                         <Input/>
                     </Form.Item>
                     <Form.Item name="birthDate"
-                               label="Birth date">
+                               label="Birth date"
+                               rules={[{required:true}]}
+                    >
                         <DatePicker/>
                     </Form.Item>
                     <Form.Item name="address"
-                               label="Address">
+                               label="Address"
+                               rules={[{required:true}]}
+                    >
                         <Input/>
                     </Form.Item>
                     <Form.Item name="specialty"
-                               label="Specialty">
+                               label="Specialty"
+                               rules={[{required:true}]}
+                    >
                         <Select>
                             {specialties.map((specialty) => (
                                 <Select.Option key={specialty.id}
@@ -152,7 +162,9 @@ export default function NewDoctor() {
                         </Select>
                     </Form.Item>
                     <Form.Item name="clinic"
-                               label="Clinic">
+                               label="Clinic"
+                               rules={[{required:true}]}
+                    >
                         <Select>
                             {clinics.map((clinic) => (
                                 <Select.Option key={clinic.id} value={clinic.name}>{clinic.name}</Select.Option>
@@ -166,6 +178,9 @@ export default function NewDoctor() {
                             {
                                 message: 'Please input doctors phone number!',
                             },
+                            {
+                                required:true,
+                            },
                         ]}
                     >
                         <Input
@@ -175,11 +190,15 @@ export default function NewDoctor() {
                         />
                     </Form.Item>
                     <Form.Item name="email"
-                               label="Email">
+                               label="Email"
+                               rules={[{required:true}]}
+                    >
                         <Input/>
                     </Form.Item>
                     <Form.Item name="password"
-                               label="Password">
+                               label="Password"
+                               rules={[{required:true}]}
+                    >
                         <Input/>
                     </Form.Item>
                     <Form.Item label="Submit">

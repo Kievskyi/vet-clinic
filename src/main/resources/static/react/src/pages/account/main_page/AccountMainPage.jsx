@@ -1,5 +1,5 @@
 import classes from "./AccountMainPage.module.css"
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {LogoutOutlined} from '@ant-design/icons';
 import {Avatar, Layout, Menu} from 'antd';
 import {Outlet, useNavigate} from "react-router-dom";
@@ -13,21 +13,46 @@ import logo from "../../../resources/logo/new_logo.jpeg"
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../../reducers/authSlice.js";
 import {selectUserDataByRole} from "../../../selectors/selectUserByRole.js";
-import {setAdministrator, setCustomer, setDoctor, setLoading, setRole} from "../../../reducers/userSlice.js";
+import {setAdministrator, setAvatar, setCustomer, setDoctor, setLoading, setRole} from "../../../reducers/userSlice.js";
 import Loading from "../../../components/Loading.jsx";
+import {getDownloadURL, ref} from "firebase/storage";
+import {imageDB} from "../../../Config.js";
 
 const {Header, Sider} = Layout;
 
 export default function AccountMainPage() {
     const isLoading = useSelector((state) => state.user.loading);
+    const avatar = useSelector((state) => state.user.avatar);
+    const {token, userId} = useSelector((state) => state.auth);
+    const user = useSelector(selectUserDataByRole);
     const navigator = useNavigate();
     const dispatch = useDispatch();
-    const user = useSelector(selectUserDataByRole);
-    const {token, userId} = useSelector((state) => state.auth);
+    const [fileUrl, setFileUrl] = useState('');
+
+    const handleDownloadFile = () => {
+        const fileRef = ref(imageDB, `user_avatars/${userId}`);
+        getDownloadURL(fileRef)
+            .then((url) => {
+                dispatch(setAvatar(url));
+                setFileUrl(url);
+            })
+            .catch((error) => {
+                console.error("Error downloading file:", error);
+            });
+    };
+
+    useEffect(() => {
+        handleDownloadFile();
+    }, [avatar]);
 
     useEffect(() => {
         async function fetchUserData() {
             dispatch(setLoading(true));
+
+            if (avatar == null) {
+                handleDownloadFile();
+            }
+
             try {
                 const url = `/api/account/showPersonalInfo?userId=${userId}`;
                 if (!token) {
@@ -82,6 +107,7 @@ export default function AccountMainPage() {
 
     function handleLogout() {
         dispatch(logout());
+        dispatch(setAvatar(null));
         navigator("/authentication");
     }
 
@@ -101,7 +127,7 @@ export default function AccountMainPage() {
                         <div className={classes.logoContainer}>
                             <div className={classes.logo} style={{fontSize: 20}}>
                                 <div className={classes.logo}>
-                                    <Avatar src={client.avatar}/>
+                                    <Avatar src={avatar != null ? avatar : client.avatar} alt="avatar" />
                                 </div>
                                 <div className={classes.greetingTextContainer}>
                                     <p className={classes.greetingText}>Hello,</p>

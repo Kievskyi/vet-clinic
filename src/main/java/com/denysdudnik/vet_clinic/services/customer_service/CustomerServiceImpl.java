@@ -2,7 +2,7 @@ package com.denysdudnik.vet_clinic.services.customer_service;
 
 import com.denysdudnik.vet_clinic.dto.*;
 import com.denysdudnik.vet_clinic.entity.*;
-import com.denysdudnik.vet_clinic.enums.Status;
+import com.denysdudnik.vet_clinic.enums.AppointmentStatus;
 import com.denysdudnik.vet_clinic.mappers.CustomerMapper;
 import com.denysdudnik.vet_clinic.repository.CustomerPetsRepository;
 import com.denysdudnik.vet_clinic.repository.CustomerRepository;
@@ -107,14 +107,14 @@ public class CustomerServiceImpl implements CustomerService, UserInfoService {
                 .pet(pet)
                 .visitDateTime(appointment.getDateTime())
                 .clinic(doctorsClinic)
-                .status(Status.PLANNED)
+                .appointmentStatus(AppointmentStatus.PLANNED)
                 .build();
 
         DoctorAppointment doctorAppointment = DoctorAppointment.builder()
                 .doctor(doctor)
                 .customerVisit(customerVisit)
                 .pet(pet)
-                .status(Status.PLANNED)
+                .appointmentStatus(AppointmentStatus.PLANNED)
                 .visitDateTime(appointment.getDateTime())
                 .build();
         visits.add(customerVisit);

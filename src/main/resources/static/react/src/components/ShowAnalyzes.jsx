@@ -1,5 +1,5 @@
 import {Modal} from "antd";
-import {getDownloadURL, ref} from "firebase/storage";
+import {getDownloadURL, listAll, ref} from "firebase/storage";
 import {imageDB} from "../Config.js";
 import {useEffect, useState} from "react";
 
@@ -9,30 +9,38 @@ export default function ShowAnalyzes({
                                          isAnalyzesModalOpen,
                                          handleCancelModal,
                                      }) {
-    const [fileUrl, setFileUrl] = useState([]);
+    const [fileUrls, setFileUrls] = useState([]);
     const [isError, setIsError] = useState(false);
 
     const handleCloseModal = () => {
         setIsError(false);
-        setFileUrl([]);
+        setFileUrls([]);
         handleCancelModal();
     };
 
-    const handleDownloadFile = () => {
-        const fileRef = ref(imageDB, `analyzes/${appointmentId}`);
-        getDownloadURL(fileRef)
-            .then((url) => {
-                setFileUrl([url]);
-            })
-            .catch((error) => {
-                setIsError(true);
-                console.error("Error downloading file:", error);
-            });
+    const handleDownloadFiles = async () => {
+        try {
+            const fileRef = ref(imageDB, `analyzes/${appointmentId}`);
+            const fileList = await listAll(fileRef);
+
+            if (fileList.items.length === 0) {
+                setIsError(true); // Если файлы не найдены, устанавливаем isError в true
+            } else {
+                // Получение URL для каждого файла и добавление их в массив
+                const urls = await Promise.all(fileList.items.map(async (item) => {
+                    return await getDownloadURL(item);
+                }));
+                setFileUrls(urls);
+            }
+        } catch (error) {
+            setIsError(true);
+            console.error("Error downloading files:", error);
+        }
     };
 
     useEffect(() => {
         if (isAnalyzesModalOpen) {
-            handleDownloadFile();
+            handleDownloadFiles();
         }
     }, [refresh]);
 
@@ -48,11 +56,15 @@ export default function ShowAnalyzes({
                     {isError ? (
                         <span>File not found</span>
                     ) : (
-                        <div style={{maxWidth: "100%", overflow: "auto"}}>
-                            <img src={fileUrl[0]}
-                                 alt=""
-                                 style={{maxWidth: "100%", height: "auto"}}
-                            />
+                        <div style={{display: "flex", flexDirection: "column", flexWrap: "wrap"}}>
+                            {fileUrls.map((url, index) => (
+                                <img
+                                    key={index}
+                                    src={url}
+                                    alt=""
+                                    style={{width: "100%", objectFit: "cover", margin: "5px"}}
+                                />
+                            ))}
                         </div>
                     )}
                 </Modal>
