@@ -148,10 +148,10 @@ LOCK TABLES `customer_invoice` WRITE;
 /*!40000 ALTER TABLE `customer_invoice`
     DISABLE KEYS */;
 INSERT INTO `customer_invoice`
-VALUES (1, 15, 1300, 'UNPAID'),
-       (2, 16, 1300, 'UNPAID'),
-       (3, 17, 1300, 'UNPAID'),
-       (5, 18, 6530, 'UNPAID');
+VALUES (1, 15, 1300),
+       (2, 16, 1300),
+       (3, 17, 1300),
+       (5, 18, 6530);
 /*!40000 ALTER TABLE `customer_invoice`
     ENABLE KEYS */;
 UNLOCK TABLES;
