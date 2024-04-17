@@ -132,7 +132,6 @@ CREATE TABLE `customer_invoice`
     `id`                int NOT NULL AUTO_INCREMENT,
     `customer_visit_id` int   DEFAULT NULL,
     `total_amount`      float DEFAULT NULL,
-    `payment_status`    enum ('PAID','UNPAID'),
     PRIMARY KEY (`id`),
     KEY `customer_invoice_customer_visits_id_fk` (`customer_visit_id`),
     CONSTRAINT `customer_invoice_customer_visits_id_fk` FOREIGN KEY (`customer_visit_id`) REFERENCES `customer_visits` (`id`)
