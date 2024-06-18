@@ -1,6 +1,7 @@
 package com.denysdudnik.vet_clinic.entity;
 
 
+import com.denysdudnik.vet_clinic.enums.AuthProvider;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,10 +28,14 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
     @ManyToOne
     @JoinColumn(name = "role_id", updatable = false, insertable = false)
     private Role role;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "auth_provider")
+    private AuthProvider authProvider;
 }

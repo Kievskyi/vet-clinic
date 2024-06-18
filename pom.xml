@@ -23,6 +23,8 @@
         <stripe.version>24.22.0</stripe.version>
         <mailjet.version>4.2.0</mailjet.version>
         <elasticemail.version>4.0.16</elasticemail.version>
+        <google.api>2.6.0</google.api>
+        <google.jackson>1.44.2</google.jackson>
     </properties>
     <dependencies>
         <dependency>
@@ -128,6 +130,16 @@
             <groupId>com.mailjet</groupId>
             <artifactId>mailjet-client</artifactId>
             <version>${mailjet.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>${google.api}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.http-client</groupId>
+            <artifactId>google-http-client-jackson2</artifactId>
+            <version>${google.jackson}</version>
         </dependency>
     </dependencies>
 

@@ -69,6 +69,7 @@ public class CustomerServiceImpl implements CustomerService, UserInfoService {
                 .email(userRequest.getEmail())
                 .password(userRequest.getPassword())
                 .role(role)
+                .authProvider(userRequest.getAuthProvider())
                 .build();
 
         customer = customerRepository.save(customer);

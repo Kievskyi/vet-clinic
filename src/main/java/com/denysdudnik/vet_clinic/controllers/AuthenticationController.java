@@ -3,6 +3,7 @@ package com.denysdudnik.vet_clinic.controllers;
 import com.denysdudnik.vet_clinic.dto.AuthTokenDetails;
 import com.denysdudnik.vet_clinic.dto.UserRequest;
 import com.denysdudnik.vet_clinic.entity.User;
+import com.denysdudnik.vet_clinic.enums.AuthProvider;
 import com.denysdudnik.vet_clinic.services.authentication_service.AuthenticationService;
 import com.denysdudnik.vet_clinic.services.customer_service.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,7 @@ public class AuthenticationController {
     @PostMapping("/registration")
     public ResponseEntity<?> registerNewUser(@RequestBody UserRequest userRequest) {
         userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        userRequest.setAuthProvider(AuthProvider.LOCAL);
         User savedUser = customerService.save(userRequest);
 
         if (savedUser == null) {

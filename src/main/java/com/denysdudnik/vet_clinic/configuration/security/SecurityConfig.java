@@ -12,8 +12,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -28,11 +32,16 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/authentication").permitAll()
                         .requestMatchers("/registration").permitAll()
+                        .requestMatchers("/api/auth/google").permitAll()
                         .requestMatchers("/admin/register-new-doctor").hasRole("ADMINISTRATOR")
                         .requestMatchers("/doctor/**").hasRole("DOCTOR")
                         .requestMatchers("/account/**").hasAnyRole("CUSTOMER", "ADMINISTRATOR", "DOCTOR")
                         .requestMatchers("/clinic-info/**").hasAnyRole("CUSTOMER", "ADMINISTRATOR", "DOCTOR")
                         .anyRequest().authenticated()
+                )
+                .oauth2Login(login -> login
+                        .defaultSuccessUrl("/api/auth/google", true)
+                        .failureUrl("/authentication/error=true")
                 )
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -48,5 +57,22 @@ public class SecurityConfig {
         authenticationProvider.setPasswordEncoder(passwordEncoder);
 
         return new ProviderManager(authenticationProvider);
+    }
+
+    @Bean
+    public DefaultOAuth2UserService defaultOAuth2UserService() {
+        return new DefaultOAuth2UserService();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowCredentials(true);
+        configuration.addAllowedOrigin("http://localhost:5173");
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

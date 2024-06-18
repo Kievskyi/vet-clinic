@@ -1,5 +1,6 @@
 import classes from "../pages/signIn/SignIn.module.css";
-import {Button, Checkbox, Form, Input} from "antd";
+import {GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google';
+import {Button, Checkbox, Divider, Form, Input} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
@@ -30,6 +31,32 @@ export default function SignInForm() {
         } catch (error) {
             console.error('Authorisation failed:', error);
         }
+    };
+
+    const onGoogleSuccess = async (response) => {
+        try {
+            const res = await fetch('/api/api/auth/google', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({tokenId: response.credential}),
+            });
+
+            if (!res.ok) {
+                throw new Error("Something went wrong with Google authentication. Status: " + res.statusText);
+            }
+
+            const responseData = await res.json();
+            dispatch(setAuthData(responseData));
+            navigate("/account");
+        } catch (error) {
+            console.error('Google authentication failed:', error);
+        }
+    };
+
+    const onGoogleFailure = (error) => {
+        console.error('Google authentication error:', error);
     };
 
     return (
@@ -80,6 +107,17 @@ export default function SignInForm() {
                 <Button type="primary" htmlType="submit" className={classes.loginFormButton}>
                     Log in
                 </Button>
+                <Divider/>
+                <div className={classes.googleButton}>
+                    <GoogleOAuthProvider
+                        clientId="1007857530183-bat11j4karudujo9osrep4teaqq5ohgg.apps.googleusercontent.com">
+                        <GoogleLogin
+                            onSuccess={onGoogleSuccess}
+                            onFailure={onGoogleFailure}
+                            useOneTap
+                        />
+                    </GoogleOAuthProvider>
+                </div>
                 Don't have an account? <Link to={"/registration"}>Register!</Link>
             </Form.Item>
         </Form>

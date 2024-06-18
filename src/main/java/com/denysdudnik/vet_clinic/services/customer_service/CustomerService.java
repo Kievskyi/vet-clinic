@@ -5,6 +5,7 @@ import com.denysdudnik.vet_clinic.dto.CustomerDto;
 import com.denysdudnik.vet_clinic.dto.UserRequest;
 import com.denysdudnik.vet_clinic.dto.UserResponse;
 import com.denysdudnik.vet_clinic.entity.Customer;
+import com.denysdudnik.vet_clinic.entity.User;
 
 public interface CustomerService {
 

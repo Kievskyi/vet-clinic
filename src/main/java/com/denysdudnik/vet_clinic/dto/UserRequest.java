@@ -1,5 +1,6 @@
 package com.denysdudnik.vet_clinic.dto;
 
+import com.denysdudnik.vet_clinic.enums.AuthProvider;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,4 +22,5 @@ public class UserRequest {
     private String clinic;
     private String specialty;
     private LocalDate birthDate;
+    private AuthProvider authProvider;
 }

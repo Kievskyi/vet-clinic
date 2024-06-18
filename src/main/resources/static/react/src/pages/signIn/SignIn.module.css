@@ -12,6 +12,7 @@
     background-color: white;
     top: 25vh;
     width: 25%;
+    height: 400px;
 }
 
 .loginForm {
@@ -35,4 +36,10 @@
 
 .loginFormButton:hover {
     background-color: #7f79bc !important;
+}
+
+.googleButton {
+    width: 200px !important;
+    margin: auto !important;
+    margin-bottom: 30px !important;
 }

@@ -6,7 +6,7 @@ spring:
           google:
             client-id: 1007857530183-bat11j4karudujo9osrep4teaqq5ohgg.apps.googleusercontent.com
             client-secret: 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
-            client-authentication-method: form
+            client-authentication-method: client_secret_post
             redirect-uri: http://localhost:8080/login/oauth2/code/google
             scope:
               - openid
