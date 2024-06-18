@@ -1,6 +1,9 @@
 package com.denysdudnik.vet_clinic.services.customer_service;
 
-import com.denysdudnik.vet_clinic.dto.*;
+import com.denysdudnik.vet_clinic.dto.Appointment;
+import com.denysdudnik.vet_clinic.dto.CustomerDto;
+import com.denysdudnik.vet_clinic.dto.UserRequest;
+import com.denysdudnik.vet_clinic.dto.UserResponse;
 import com.denysdudnik.vet_clinic.entity.Customer;
 
 public interface CustomerService {

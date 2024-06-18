@@ -1,4 +1,24 @@
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 1007857530183-bat11j4karudujo9osrep4teaqq5ohgg.apps.googleusercontent.com
+            client-secret: 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
+            client-authentication-method: form
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
+            scope:
+              - openid
+              - email
+              - profile
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
+            user-name-attribute: sub
+            jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
   datasource:
     username: root
     password: root
@@ -20,9 +40,9 @@ logging:
   level:
     org.springframework.security: DEBUG
 jwt:
-  secret: "dsQFUoEwQnqfaKx65h6D60ISJ2TfC4bkTOgZbSmqBT4="
+  secret: dsQFUoEwQnqfaKx65h6D60ISJ2TfC4bkTOgZbSmqBT4=
   expiration: 86400
 stripe:
-  api_key: "sk_test_51P2srwJriED6n5QK5icHdkX8pr8t8JRmEt8cmukD9qthkmSznbkYppwLXI9QOfA2m4G8HJ73TA0FkDZRGEJGlB4A00cS5u7CyJ"
+  api_key: sk_test_51P2srwJriED6n5QK5icHdkX8pr8t8JRmEt8cmukD9qthkmSznbkYppwLXI9QOfA2m4G8HJ73TA0FkDZRGEJGlB4A00cS5u7CyJ
 domain:
-  front.end: "http://localhost:5173/account"
+  front.end: http://localhost:5173/account

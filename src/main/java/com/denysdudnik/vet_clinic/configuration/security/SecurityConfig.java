@@ -25,7 +25,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/authentication").permitAll()
                         .requestMatchers("/registration").permitAll()
                         .requestMatchers("/admin/register-new-doctor").hasRole("ADMINISTRATOR")
@@ -33,7 +33,8 @@ public class SecurityConfig {
                         .requestMatchers("/account/**").hasAnyRole("CUSTOMER", "ADMINISTRATOR", "DOCTOR")
                         .requestMatchers("/clinic-info/**").hasAnyRole("CUSTOMER", "ADMINISTRATOR", "DOCTOR")
                         .anyRequest().authenticated()
-                ).addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                )
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
