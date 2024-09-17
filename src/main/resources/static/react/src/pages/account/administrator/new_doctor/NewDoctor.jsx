@@ -28,7 +28,7 @@ export default function NewDoctor() {
     }
 
     const handleAddNewDoctor = async (doctor) => {
-        const url = `/api/admin/register-new-doctor`;
+        const url = `/api/admin/doctors`;
 
         try {
             const response = await fetch(url, {
@@ -52,7 +52,7 @@ export default function NewDoctor() {
     }
 
     const fetchAllClinics = async () => {
-        const url = `/api/clinic-info/all-clinics`;
+        const url = `/api/clinics`;
 
         try {
             const response = await fetch(url, {
@@ -74,7 +74,7 @@ export default function NewDoctor() {
     }
 
     const fetchAllSpecialties = async () => {
-        const url = `/api/clinic-info/all-specialties`;
+        const url = `/api/clinics/specialties`;
 
         try {
             const response = await fetch(url, {

@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface DoctorAppointmentService {
 
-    List<LocalTime> getAvailableSlots(Integer doctorId, LocalDate date);
-
     List<DoctorAppointmentDto> findAll(Integer userId);
+
+    List<LocalTime> getAvailableSlots(Integer doctorId, LocalDate date);
 
     List<DoctorAppointmentDto> finishConsultation(ConsultationDetailsRequest consultationDetails);
 }

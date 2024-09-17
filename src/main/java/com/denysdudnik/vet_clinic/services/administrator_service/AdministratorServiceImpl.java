@@ -6,12 +6,12 @@ import com.denysdudnik.vet_clinic.dto.UserRequest;
 import com.denysdudnik.vet_clinic.dto.UserResponse;
 import com.denysdudnik.vet_clinic.entity.Administrator;
 import com.denysdudnik.vet_clinic.entity.AdministratorInfo;
+import com.denysdudnik.vet_clinic.exception.UserNotFoundException;
 import com.denysdudnik.vet_clinic.mappers.AdministratorMapper;
 import com.denysdudnik.vet_clinic.repository.AdministratorRepository;
 import com.denysdudnik.vet_clinic.services.UserInfoService;
 import com.denysdudnik.vet_clinic.services.authentication_service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,7 +34,7 @@ public class AdministratorServiceImpl implements AdministratorService, UserInfoS
 
     @Override
     public UserResponse updateUserInfo(UserRequest userRequest, Integer userId) {
-        Administrator administrator = administratorRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        Administrator administrator = administratorRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
         AdministratorInfo administratorInfo = administrator.getAdministratorInfo();
         AdministratorDto administratorDto;
 

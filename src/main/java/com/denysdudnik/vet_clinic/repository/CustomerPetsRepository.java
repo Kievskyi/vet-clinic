@@ -7,5 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CustomerPetsRepository extends JpaRepository<CustomerPet, Integer> {
+
     Optional<List<CustomerPet>> findByCustomerId(Integer id);
 }

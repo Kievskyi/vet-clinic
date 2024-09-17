@@ -32,7 +32,7 @@ export default function DoctorsAppointment() {
         const doctorId = values.doctor[1];
         const dateTime = `${values.date.format("YYYY-MM-DD")}T${values.time}:00`;
         const additionalInfo = values.additionalInfo;
-        const url = `/api/account/newAppointment?customerId=${customerId}&petId=${petId}`
+        const url = `/api/customers/${customerId}/pets/${petId}/appointments`;
 
         const appointment = {
             doctorId: doctorId,
@@ -75,7 +75,7 @@ export default function DoctorsAppointment() {
     };
 
     const fetchAllClinics = async () => {
-        const url = `/api/clinic-info/all-clinics`;
+        const url = `/api/clinics`;
 
         try {
             const response = await fetch(url, {
@@ -96,10 +96,10 @@ export default function DoctorsAppointment() {
         }
     }
 
-    const fetchAvailableTimes = async (doctorId, date) => {
+    const fetchAvailableSlots = async (doctorId, date) => {
         if (!doctorId || !date) return;
 
-        const url = `/api/account/available-slots?doctorId=${doctorId}&date=${date}`;
+        const url = `/api/customers/doctors/${doctorId}/available-slots?date=${date}`;
 
         try {
             const response = await fetch(url, {
@@ -129,7 +129,7 @@ export default function DoctorsAppointment() {
             fetchAllClinics();
         }
 
-        fetchAvailableTimes(doctorId, date);
+        fetchAvailableSlots(doctorId, date);
     }, [date, selectedDoctor, refreshKey]);
 
     return (

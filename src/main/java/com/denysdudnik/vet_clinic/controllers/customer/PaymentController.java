@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/customers")
 @RequiredArgsConstructor
 public class PaymentController {
     private final PaymentService paymentService;
     private final CustomerInvoiceService invoiceService;
 
-    @GetMapping("/all-invoices")
-    public ResponseEntity<?> allInvoices(@RequestParam Integer userId) {
+    @GetMapping("/{userId}/invoices")
+    public ResponseEntity<?> getAllInvoices(@PathVariable Integer userId) {
         List<CustomerInvoiceDto> invoices = invoiceService.findAllByCustomerId(userId);
 
         return ResponseEntity.ok().body(invoices);
     }
 
-    @PostMapping("create-checkout-session")
-    public ResponseEntity<?> createCheckoutSession(@RequestParam Integer invoiceId) {
+    @PostMapping("/invoices/{invoiceId}/checkout-session")
+    public ResponseEntity<?> createCheckoutSession(@PathVariable Integer invoiceId) {
         try {
             return ResponseEntity.ok().body(paymentService.createCheckoutSession(invoiceId));
         } catch (StripeException | RuntimeException e) {
@@ -33,9 +33,9 @@ public class PaymentController {
         }
     }
 
-    @GetMapping("session-status")
-    public ResponseEntity<?> sessionStatus(@RequestParam String sessionId,
-                                           @RequestParam Integer invoiceId) {
+    @GetMapping("/checkout-sessions/{sessionId}/status")
+    public ResponseEntity<?> getSessionStatus(@PathVariable String sessionId,
+                                              @RequestParam Integer invoiceId) {
         try {
             return ResponseEntity.ok().body(paymentService.returnSessionStatus(sessionId, invoiceId));
         } catch (StripeException e) {

@@ -2,6 +2,7 @@ package com.denysdudnik.vet_clinic.services.customer_invoice_service;
 
 import com.denysdudnik.vet_clinic.dto.CustomerInvoiceDto;
 import com.denysdudnik.vet_clinic.entity.CustomerInvoice;
+import com.denysdudnik.vet_clinic.exception.NotFoundException;
 import com.denysdudnik.vet_clinic.mappers.CustomerMapper;
 import com.denysdudnik.vet_clinic.repository.CustomerInvoiceRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 
     @Override
     public CustomerInvoice findById(Integer id) {
-        return invoiceRepository.findById(id).orElseThrow(() -> new RuntimeException("Unable to find invoice with id: " + id));
+        return invoiceRepository.findById(id).orElseThrow(() -> new NotFoundException("Unable to find invoice with id: " + id));
     }
 
     @Override

@@ -14,9 +14,8 @@ export default function Return() {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const sessionId = urlParams.get('session_id');
-        console.log(invoiceId);
 
-        fetch(`/api/account/session-status?sessionId=${sessionId}&invoiceId=${invoiceId}`, {
+        fetch(`/api/customers/checkout-sessions/${sessionId}/status?invoiceId=${invoiceId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }

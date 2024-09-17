@@ -28,7 +28,7 @@ export default function ConsultationDetails({
     }
 
     const fetchServices = async () => {
-        const url = `/api/clinic-info/all-services`;
+        const url = `/api/clinics/services`;
 
         try {
             const response = await fetch(url, {
@@ -57,7 +57,7 @@ export default function ConsultationDetails({
         };
 
         try {
-            const response = await fetch("/api/doctor/consultation-details", {
+            const response = await fetch("/api/doctors/appointments/consultation-details", {
                 method: "POST",
                 headers: {
                     'Authorization': `Bearer ${token}`,

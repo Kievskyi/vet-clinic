@@ -1,9 +1,11 @@
 package com.denysdudnik.vet_clinic.entity;
 
 import com.denysdudnik.vet_clinic.enums.AppointmentStatus;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -23,7 +25,8 @@ public class CustomerVisit {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @JsonIgnore
+//    @JsonIgnore
+    @JsonBackReference
     private Customer customer;
 
     @ManyToOne
@@ -38,6 +41,7 @@ public class CustomerVisit {
     private LocalDateTime visitDateTime;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(
             name = "customer_visits_services",
             joinColumns = @JoinColumn(name = "customer_visit_id"),

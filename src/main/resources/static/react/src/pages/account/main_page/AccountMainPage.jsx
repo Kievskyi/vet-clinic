@@ -54,7 +54,7 @@ export default function AccountMainPage() {
             }
 
             try {
-                const url = `/api/account/showPersonalInfo?userId=${userId}`;
+                const url = `/api/users/${userId}/personal-info`;
                 if (!token) {
                     throw new Error("No token found");
                 }

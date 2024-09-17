@@ -15,7 +15,7 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerVisitsServiceId implements Serializable {
+public class CustomerVisitServiceIdMapping implements Serializable {
     @Serial
     private static final long serialVersionUID = -1506074941766059057L;
 
@@ -29,7 +29,7 @@ public class CustomerVisitsServiceId implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        CustomerVisitsServiceId entity = (CustomerVisitsServiceId) o;
+        CustomerVisitServiceIdMapping entity = (CustomerVisitServiceIdMapping) o;
         return Objects.equals(this.customerVisitId, entity.customerVisitId) &&
                 Objects.equals(this.serviceId, entity.serviceId);
     }

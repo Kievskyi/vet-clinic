@@ -6,7 +6,5 @@ public interface CustomerInfoService {
 
     CustomerInfo save(CustomerInfo customerInfo);
 
-    CustomerInfo findByEmail(String email);
-
     CustomerInfo findById(Integer id);
 }

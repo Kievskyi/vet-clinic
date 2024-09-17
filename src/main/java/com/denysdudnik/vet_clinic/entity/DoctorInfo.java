@@ -39,7 +39,7 @@ public class DoctorInfo {
     @Column(name = "address", length = 45)
     private String address;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.SET_NULL)
     @JoinColumn(name = "clinic_id")
     private Clinic clinic;
@@ -47,7 +47,7 @@ public class DoctorInfo {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
-    @OneToOne
-    @JoinColumn(name = "speciality")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "specialty")
     private Specialty specialty;
 }

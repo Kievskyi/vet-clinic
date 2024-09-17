@@ -8,6 +8,4 @@ public interface AuthenticationService {
     Authentication authenticateUser(String email, String password);
 
     AuthTokenDetails generateAuthTokenAndUserId(String email);
-
-
 }

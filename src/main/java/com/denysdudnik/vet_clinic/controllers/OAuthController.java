@@ -2,23 +2,24 @@ package com.denysdudnik.vet_clinic.controllers;
 
 import com.denysdudnik.vet_clinic.dto.AuthTokenDetails;
 import com.denysdudnik.vet_clinic.dto.UserRequest;
-import com.denysdudnik.vet_clinic.entity.Customer;
 import com.denysdudnik.vet_clinic.entity.User;
 import com.denysdudnik.vet_clinic.enums.AuthProvider;
 import com.denysdudnik.vet_clinic.repository.UserRepository;
-import com.denysdudnik.vet_clinic.security.UserDetailsImpl;
-import com.denysdudnik.vet_clinic.security.utils.JwtTokenUtil;
 import com.denysdudnik.vet_clinic.services.authentication_service.AuthenticationService;
 import com.denysdudnik.vet_clinic.services.customer_service.CustomerService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -29,6 +30,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Slf4j
 public class OAuthController {
     private final UserRepository userRepository;
     private final CustomerService customerService;
@@ -50,11 +52,13 @@ public class OAuthController {
         try {
             idToken = verifier.verify(tokenId);
         } catch (IOException | GeneralSecurityException e) {
-            return ResponseEntity.status(500).body("Error verifying Google token");
+            log.info("Error verifying Google token", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error verifying Google token");
         }
 
         if (idToken == null) {
-            return ResponseEntity.status(401).body("Invalid Google token");
+            log.info("Google token is null");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Google token is null");
         }
 
         GoogleIdToken.Payload googlePayload = idToken.getPayload();

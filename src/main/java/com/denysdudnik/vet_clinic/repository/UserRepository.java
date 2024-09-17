@@ -13,4 +13,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("SELECT u.role FROM User u WHERE u.id = ?1")
     Optional<Role> findRoleByUserId(Integer userId);
+
+    @Override
+    Optional<User> findById(Integer id);
 }

@@ -10,5 +10,4 @@ public interface AdministratorService {
     UserResponse buildResponse(AdministratorDto administratorDto);
 
     UserResponse buildResponse(String token, AdministratorDto administratorDto);
-
 }

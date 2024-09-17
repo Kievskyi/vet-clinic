@@ -15,37 +15,41 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/clinic-info")
+@RequestMapping("/clinics")
 @RequiredArgsConstructor
 public class ClinicController {
     private final ClinicService clinicService;
     private final SpecialtiesService specialtiesService;
     private final ClinicServicePrice servicePrice;
 
-    @GetMapping("/all-clinics")
-    public ResponseEntity<List<Clinic>> allClinics() {
+    @GetMapping
+    public ResponseEntity<List<Clinic>> getAllClinics() {
         List<Clinic> allClinics = clinicService.findAllClinics();
+
+        if (allClinics == null || allClinics.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
 
         return ResponseEntity.ok().body(allClinics);
     }
 
-    @GetMapping("all-specialties")
-    public ResponseEntity<List<Specialty>> allSpecialties() {
+    @GetMapping("/specialties")
+    public ResponseEntity<List<Specialty>> getAllSpecialties() {
         List<Specialty> specialties = specialtiesService.findAll();
 
-        if (specialties == null) {
-            return ResponseEntity.badRequest().build();
+        if (specialties == null || specialties.isEmpty()) {
+            return ResponseEntity.noContent().build();
         }
 
         return ResponseEntity.ok().body(specialties);
     }
 
-    @GetMapping("/all-services")
-    public ResponseEntity<List<ServicePrice>> allServices() {
+    @GetMapping("/services")
+    public ResponseEntity<List<ServicePrice>> getAllServices() {
         List<ServicePrice> services = servicePrice.findAll();
 
-        if (services == null) {
-            return ResponseEntity.badRequest().build();
+        if (services == null || services.isEmpty()) {
+            return ResponseEntity.noContent().build();
         }
 
         return ResponseEntity.ok().body(services);

@@ -15,8 +15,8 @@ export default function MyPets() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [form] = useForm();
 
-    const handleDelete = async (index) => {
-        const url = `/api/account/deletePet?customerId=${userId}&petId=${index}`;
+    const handleDelete = async (petId) => {
+        const url = `/api/customers/${userId}/pets/${petId}`;
 
         const response = await fetch(url, {
             method: 'DELETE',
@@ -45,7 +45,7 @@ export default function MyPets() {
     };
 
     const handleAdd = async (values) => {
-        const url = `/api/account/addNewPet?customerId=${userId}`;
+        const url = `/api/customers/${userId}/pets`;
 
         try {
             const response = await fetch(url, {

@@ -44,6 +44,7 @@ public class JwtTokenUtil {
 
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
+
         return claimsResolver.apply(claims);
     }
 
@@ -57,11 +58,13 @@ public class JwtTokenUtil {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getLoginFromToken(token);
+
         return (!isTokenExpired(token) && username.equals(userDetails.getUsername()));
     }
 
     private Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
+
         return expiration.before(new Date());
     }
 }

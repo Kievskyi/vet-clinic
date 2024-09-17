@@ -10,32 +10,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/doctor")
+@RequestMapping("/doctors")
 @RequiredArgsConstructor
 public class DoctorAppointmentsController {
     private final DoctorAppointmentService appointmentService;
 
-    @GetMapping("/all-appointments")
-    public ResponseEntity<List<DoctorAppointmentDto>> allAppointments(@RequestParam Integer userId) {
-        List<DoctorAppointmentDto> appointments;
-
-        try {
-            appointments = appointmentService.findAll(userId);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        appointments.forEach(System.out::println);
+    @GetMapping("/{userId}/appointments")
+    public ResponseEntity<List<DoctorAppointmentDto>> getAllAppointments(@PathVariable Integer userId) {
+        List<DoctorAppointmentDto> appointments = appointmentService.findAll(userId);
 
         return ResponseEntity.ok().body(appointments);
     }
 
-    @PostMapping("/consultation-details")
-    public ResponseEntity<?> consultationDetails(@RequestBody ConsultationDetailsRequest consultationDetails) {
-        List<DoctorAppointmentDto> appointmentDtos = appointmentService.finishConsultation(consultationDetails);
+    @PostMapping("/appointments/consultation-details")
+    public ResponseEntity<?> finishConsultation(@RequestBody ConsultationDetailsRequest consultationDetails) {
+        List<DoctorAppointmentDto> appointmentDtos;
+
+        try {
+            appointmentDtos = appointmentService.finishConsultation(consultationDetails);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
 
         if (appointmentDtos.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.noContent().build();
         }
 
         return ResponseEntity.ok().body(appointmentDtos);

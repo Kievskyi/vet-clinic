@@ -125,7 +125,7 @@ export default function MyInformation() {
 
 
     const handleSubmit = async () => {
-        const url = `/api/account/updatePersonalInfo?userId=${userId}`;
+        const url = `/api/users/${userId}/personal-info`;
 
         const updatedInfo = {
             firstName,

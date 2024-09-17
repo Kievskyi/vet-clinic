@@ -146,7 +146,7 @@ export default function MyAppointments() {
     };
 
     const handleFetchAppointments = async () => {
-        const url = `/api/doctor/all-appointments?userId=${userId}`;
+        const url = `/api/doctors/${userId}/appointments`;
         dispatch(setAppointmentsLoading(true));
 
         try {

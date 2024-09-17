@@ -12,10 +12,10 @@ import org.hibernate.annotations.OnDeleteAction;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerVisitsService {
+public class CustomerVisitServiceMapping {
 
     @EmbeddedId
-    private CustomerVisitsServiceId id;
+    private CustomerVisitServiceIdMapping id;
 
     @MapsId("customerVisitId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

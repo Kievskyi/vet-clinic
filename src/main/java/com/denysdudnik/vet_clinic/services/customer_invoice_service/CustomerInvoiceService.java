@@ -6,6 +6,7 @@ import com.denysdudnik.vet_clinic.entity.CustomerInvoice;
 import java.util.List;
 
 public interface CustomerInvoiceService {
+
     CustomerInvoice findById(Integer id);
 
     List<CustomerInvoiceDto> findAllByCustomerId(Integer customerId);
@@ -13,5 +14,4 @@ public interface CustomerInvoiceService {
     List<CustomerInvoice> findAll();
 
     CustomerInvoice save(CustomerInvoice customerInvoice);
-
 }

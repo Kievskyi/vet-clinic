@@ -15,7 +15,7 @@ export default function Payment() {
     }, []);
 
     async function fetchClientSecret() {
-        const url = `/api/account/all-invoices?userId=${userId}`;
+        const url = `/api/customers/${userId}/invoices`;
 
         try {
             const response = await fetch(url, {

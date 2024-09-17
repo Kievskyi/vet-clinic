@@ -10,17 +10,22 @@ import com.mailjet.client.resource.Emailv31;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class MailJetService implements MailService {
+    @Value("${mailjet.api_key}")
+    private String apiKey;
+    @Value("${mailjet.api_secret}")
+    private String apiSecret;
 
     public void sendEmail(String email, String firstName, String report) throws MailjetSocketTimeoutException, MailjetException {
         MailjetClient client;
         MailjetRequest request;
         MailjetResponse response;
-        client = new MailjetClient("49d811123c4b8d5ccf97c7aea452533e", "50e22d62b19afc7a3890d8ddd5583e83", new ClientOptions("v3.1"));
+        client = new MailjetClient(apiKey, apiSecret, new ClientOptions("v3.1"));
         request = new MailjetRequest(Emailv31.resource)
                 .property(Emailv31.MESSAGES, new JSONArray()
                         .put(new JSONObject()

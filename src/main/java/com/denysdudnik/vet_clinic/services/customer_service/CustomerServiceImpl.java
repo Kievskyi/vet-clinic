@@ -3,6 +3,7 @@ package com.denysdudnik.vet_clinic.services.customer_service;
 import com.denysdudnik.vet_clinic.dto.*;
 import com.denysdudnik.vet_clinic.entity.*;
 import com.denysdudnik.vet_clinic.enums.AppointmentStatus;
+import com.denysdudnik.vet_clinic.exception.UserNotFoundException;
 import com.denysdudnik.vet_clinic.mappers.CustomerMapper;
 import com.denysdudnik.vet_clinic.repository.CustomerPetsRepository;
 import com.denysdudnik.vet_clinic.repository.CustomerRepository;
@@ -12,7 +13,8 @@ import com.denysdudnik.vet_clinic.services.authentication_service.Authentication
 import com.denysdudnik.vet_clinic.services.customer_info_service.CustomerInfoService;
 import com.denysdudnik.vet_clinic.services.role.RoleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CustomerServiceImpl implements CustomerService, UserInfoService {
     private final String SERVICE_NAME = "CUSTOMER";
     private final DoctorRepository doctorRepository;
@@ -32,33 +35,14 @@ public class CustomerServiceImpl implements CustomerService, UserInfoService {
     private final CustomerMapper customerMapper;
 
     @Override
-    public CustomerDto findById(Integer id) {
+    @Cacheable(value = "CustomerService::findById", key = "#userId")
+    public CustomerDto findById(Integer userId) {
         return customerMapper.customerToCustomerDto(
                 customerRepository
-                        .findById(id)
-                        .orElseThrow(() -> new UsernameNotFoundException("Customer not found"))
+                        .findById(userId)
+                        .orElseThrow(() -> new UserNotFoundException("Customer not found"))
         );
     }
-
-    @Override
-    public Customer findByEmail(String email) {
-        return customerRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Customer not found"));
-    }
-
-    @Override
-    public CustomerDto updateCustomerInfo(UserRequest userRequest, CustomerDto customerDto) {
-        Customer customer = customerRepository.findById(customerDto.getId()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        CustomerInfo customerInfo = customer.getCustomerInfo();
-
-        customerInfo.setFirstName(userRequest.getFirstName());
-        customerInfo.setLastName(userRequest.getLastName());
-        customerInfo.setPhoneNumber(userRequest.getPhoneNumber());
-
-        customer.setEmail(userRequest.getEmail());
-
-        return customerMapper.customerToCustomerDto(customerRepository.save(customer));
-    }
-
 
     @Override
     @Transactional
@@ -90,9 +74,9 @@ public class CustomerServiceImpl implements CustomerService, UserInfoService {
     @Override
     @Transactional
     public CustomerDto addNewAppointment(Integer customerId, Integer petId, Appointment appointment) {
-        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new UsernameNotFoundException("Customer not found"));
-        CustomerPet pet = petsRepository.findById(petId).orElseThrow(() -> new UsernameNotFoundException("Pet not found"));
-        Doctor doctor = doctorRepository.findById(appointment.getDoctorId()).orElseThrow(() -> new UsernameNotFoundException("Doctor not found"));
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new UserNotFoundException("Customer not found"));
+        CustomerPet pet = petsRepository.findById(petId).orElseThrow(() -> new UserNotFoundException("Pet not found"));
+        Doctor doctor = doctorRepository.findById(appointment.getDoctorId()).orElseThrow(() -> new UserNotFoundException("Doctor not found"));
         Clinic doctorsClinic = doctor.getDoctorInfo().getClinic();
         List<DoctorAppointment> doctorAppointments;
         List<CustomerVisit> visits = customer.getCustomerVisit();
@@ -130,7 +114,7 @@ public class CustomerServiceImpl implements CustomerService, UserInfoService {
 
     @Override
     public UserResponse updateUserInfo(UserRequest userRequest, Integer userId) {
-        Customer customer = customerRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        Customer customer = customerRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
         CustomerInfo customerInfo = customer.getCustomerInfo();
         CustomerDto customerDto;
 
@@ -147,7 +131,6 @@ public class CustomerServiceImpl implements CustomerService, UserInfoService {
         }
 
         customerDto = customerMapper.customerToCustomerDto(customerRepository.save(customer));
-
         return buildResponse(customerDto);
     }
 

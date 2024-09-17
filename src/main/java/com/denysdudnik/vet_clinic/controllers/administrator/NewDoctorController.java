@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin/doctors")
 @RequiredArgsConstructor
 public class NewDoctorController {
     private final DoctorService doctorService;
 
-    @PostMapping("/register-new-doctor")
-    public ResponseEntity<String> newDoctorRegistration(@RequestBody UserRequest userRequest) {
+    @PostMapping
+    public ResponseEntity<String> registerNewDoctor(@RequestBody UserRequest userRequest) {
         DoctorDto savedDoctor = doctorService.save(userRequest);
 
         if (savedDoctor == null) {
             return ResponseEntity.badRequest().body("Doctor wasn't added");
         }
-        doctorService.createJs();
+        doctorService.generateDoctorsJsFile();
 
         return ResponseEntity.ok().body("Doctor was successfully added");
     }

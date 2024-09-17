@@ -22,6 +22,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public Authentication authenticateUser(String email, String password) {
         Authentication authentication;
+
         try {
             authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(email, password)
@@ -36,6 +37,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 }
             };
         }
+
         return authentication;
     }
 

@@ -2,7 +2,6 @@ package com.denysdudnik.vet_clinic.dto;
 
 import com.denysdudnik.vet_clinic.entity.CustomerInfo;
 import com.denysdudnik.vet_clinic.entity.CustomerPet;
-import com.denysdudnik.vet_clinic.entity.CustomerVisit;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,6 +18,6 @@ import java.util.List;
 public class CustomerDto extends UserDto {
 
     private CustomerInfo userInfo;
-    private List<CustomerVisit> customerVisit;
+    private List<CustomerVisitDto> customerVisit;
     private List<CustomerPet> customerPets;
 }

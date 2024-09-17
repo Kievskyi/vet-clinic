@@ -12,7 +12,7 @@ export default function CheckoutLink() {
     const invoiceId = useSelector((state) => state.invoice.id);
     const isLoading = useSelector((state) => state.invoice.isLoading);
     const fetchClientSecret = useCallback(() => {
-        return fetch(`/api/account/create-checkout-session?invoiceId=${invoiceId}`, {
+        return fetch(`/api/customers/invoices/${invoiceId}/checkout-session`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

@@ -21,7 +21,6 @@ public class PaymentServiceStripe implements PaymentService {
 
     @Value("${stripe.api_key}")
     private String apiKey;
-
     @Value("${domain.front.end}")
     private String frontDomain;
 

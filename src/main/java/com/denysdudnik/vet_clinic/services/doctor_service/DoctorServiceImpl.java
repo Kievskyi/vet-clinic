@@ -5,8 +5,8 @@ import com.denysdudnik.vet_clinic.dto.DoctorDto;
 import com.denysdudnik.vet_clinic.dto.UserRequest;
 import com.denysdudnik.vet_clinic.dto.UserResponse;
 import com.denysdudnik.vet_clinic.entity.*;
+import com.denysdudnik.vet_clinic.exception.UserNotFoundException;
 import com.denysdudnik.vet_clinic.mappers.DoctorMapper;
-import com.denysdudnik.vet_clinic.repository.DoctorAppointmentsRepository;
 import com.denysdudnik.vet_clinic.repository.DoctorRepository;
 import com.denysdudnik.vet_clinic.services.UserInfoService;
 import com.denysdudnik.vet_clinic.services.authentication_service.AuthenticationService;
@@ -15,7 +15,6 @@ import com.denysdudnik.vet_clinic.services.role.RoleService;
 import com.denysdudnik.vet_clinic.services.specialties_service.SpecialtiesService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,13 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,7 +31,6 @@ import java.util.stream.Collectors;
 public class DoctorServiceImpl implements DoctorService, UserInfoService {
     private final String SERVICE_NAME = "DOCTOR";
     private final DoctorRepository doctorRepository;
-    private final DoctorAppointmentsRepository appointmentsRepository;
     private final DoctorMapper doctorMapper;
     private final SpecialtiesService specialtiesService;
     private final ClinicService clinicService;
@@ -46,13 +39,12 @@ public class DoctorServiceImpl implements DoctorService, UserInfoService {
     private final PasswordEncoder passwordEncoder;
     private final ObjectMapper objectMapper;
 
-
     @Override
     public DoctorDto findById(Integer id) {
         return doctorMapper.doctorToDoctorDto(
                 doctorRepository
                         .findById(id)
-                        .orElseThrow(() -> new UsernameNotFoundException("Doctor not found"))
+                        .orElseThrow(() -> new UserNotFoundException("Doctor not found"))
         );
     }
 
@@ -85,40 +77,10 @@ public class DoctorServiceImpl implements DoctorService, UserInfoService {
         return doctorMapper.doctorToDoctorDto(doctorRepository.save(doctor));
     }
 
-    @Override
-    public List<LocalTime> getAvailableSlots(Integer doctorId, LocalDate date) {
-        LocalDateTime startOfDay = date.atStartOfDay();
-        LocalDateTime endOfDay = date.plusDays(1).atStartOfDay();
-        List<DoctorAppointment> doctorAppointments = appointmentsRepository.findByDoctor_IdAndVisitDateTimeBetween(doctorId, startOfDay, endOfDay);
-        for (DoctorAppointment doctorAppointment : doctorAppointments) {
-            System.out.println(doctorAppointment);
-        }
-
-        return buildListWithAvailableSlots(doctorAppointments);
-    }
-
-    private List<LocalTime> buildListWithAvailableSlots(List<DoctorAppointment> doctorAppointments) {
-        LocalTime startOfDay = LocalTime.of(7, 0);
-        LocalTime endOfDay = LocalTime.of(22, 0);
-
-        List<LocalTime> allSlots = new ArrayList<>();
-        for (LocalTime time = startOfDay; time.isBefore(endOfDay); time = time.plusMinutes(30)) {
-            allSlots.add(time);
-        }
-
-        Set<LocalTime> busySlots = doctorAppointments.stream()
-                .map(appointment -> appointment.getVisitDateTime().toLocalTime())
-                .map(time -> time.minusMinutes(time.getMinute() % 30))
-                .collect(Collectors.toSet());
-
-        return allSlots.stream()
-                .filter(slot -> !busySlots.contains(slot))
-                .collect(Collectors.toList());
-    }
 
     @Override
     public UserResponse updateUserInfo(UserRequest userRequest, Integer userId) {
-        Doctor doctor = doctorRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        Doctor doctor = doctorRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("Doctor not found"));
         DoctorInfo doctorInfo = doctor.getDoctorInfo();
         DoctorDto doctorDto;
 
@@ -139,13 +101,14 @@ public class DoctorServiceImpl implements DoctorService, UserInfoService {
         return buildResponse(doctorDto);
     }
 
-
-    public void createJs() {
+    @Transactional
+    public void generateDoctorsJsFile() {
         String path = "src/main/resources/static/react/src/resources/employee/doctors.js";
         List<Doctor> doctors = doctorRepository.findAll();
+
         List<DoctorDto> doctorDtos = doctors.stream()
                 .map(doctorMapper::doctorToDoctorDto)
-                .collect(Collectors.toList());
+                .toList();
 
         Map<String, List<DoctorDto>> doctorsBySpecialty = doctorDtos.stream()
                 .collect(Collectors.groupingBy(doctorDto -> doctorDto.getUserInfo().getSpecialty().getDescription(),

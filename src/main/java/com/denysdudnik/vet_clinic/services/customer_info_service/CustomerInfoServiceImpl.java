@@ -16,11 +16,6 @@ public class CustomerInfoServiceImpl implements CustomerInfoService {
     }
 
     @Override
-    public CustomerInfo findByEmail(String email) {
-        return customerInfoRepository.findByCustomerEmail(email).orElseThrow(() -> new IllegalArgumentException("Invalid email"));
-    }
-
-    @Override
     public CustomerInfo findById(Integer id) {
         return customerInfoRepository.findByCustomerId(id).orElseThrow(() -> new IllegalArgumentException("Invalid customer id"));
     }

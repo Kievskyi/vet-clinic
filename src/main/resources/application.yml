@@ -1,11 +1,19 @@
 spring:
+  cache:
+    type: redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  config:
+    import: optional:file:.env[.properties]
   security:
     oauth2:
       client:
         registration:
           google:
-            client-id: 1007857530183-bat11j4karudujo9osrep4teaqq5ohgg.apps.googleusercontent.com
-            client-secret: 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
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_SECRET}
             client-authentication-method: client_secret_post
             redirect-uri: http://localhost:8080/login/oauth2/code/google
             scope:
@@ -20,8 +28,8 @@ spring:
             user-name-attribute: sub
             jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
   datasource:
-    username: root
-    password: root
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     url: jdbc:mysql://localhost:3306/vet-clinic
   jpa:
     hibernate:
@@ -39,10 +47,14 @@ spring:
 logging:
   level:
     org.springframework.security: DEBUG
+    root: info
 jwt:
-  secret: dsQFUoEwQnqfaKx65h6D60ISJ2TfC4bkTOgZbSmqBT4=
+  secret: ${JWT_SECRET}
   expiration: 86400
 stripe:
-  api_key: sk_test_51P2srwJriED6n5QK5icHdkX8pr8t8JRmEt8cmukD9qthkmSznbkYppwLXI9QOfA2m4G8HJ73TA0FkDZRGEJGlB4A00cS5u7CyJ
+  api_key: ${STRIPE_API_KEY}
 domain:
   front.end: http://localhost:5173/account
+mailjet:
+  api_key: ${MAILJET_API_KEY}
+  api_secret: ${MAILJET_API_SECRET}
